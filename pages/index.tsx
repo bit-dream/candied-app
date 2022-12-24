@@ -15,6 +15,9 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className={styles.main}>
+        <h1 className="text-3xl font-bold hover:text-cyan-300">
+          Hello world!
+        </h1>
         <div className={styles.description}>
           <p>
             Get started by editing&nbsp;
