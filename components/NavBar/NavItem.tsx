@@ -8,7 +8,8 @@ const NavItem = (props: {
     logoImage?: string,
     isLogo?: boolean | undefined,
     logoClass?: string,
-    isFooter?: boolean
+    isFooter?: boolean,
+    onClick?: () => void
 }) => {
     let mainClassList = twMerge(
         'rounded-full',
@@ -38,9 +39,11 @@ const NavItem = (props: {
     );
     return <>
         <div className={mainClassList}>
-            <div className='h-full w-full flex items-center justify-center relative object-scale-down text-red-800'>
+            <button
+                onClick={props.onClick}
+                className='h-full w-full flex items-center justify-center relative object-scale-down text-red-800'>
                 {props.icon ? props.icon : props.logoImage ? <Image src={props.logoImage} className={props.logoClass} fill alt='logo'/> : <></>}
-            </div>
+            </button>
         </div>
         {!props.buttonTitle ? <></> :
             <div className={titleClassList}>{props.buttonTitle}</div>
