@@ -6,10 +6,12 @@ import Icon from "../components/Icon/Icon";
 const Editor: NextPage = () => {
     return <>
         <NavBar>
-            <NavItem buttonTitle='test' icon={<Icon type='arrow_forward'/>}/>
-            <NavItem buttonTitle='test' icon={<Icon type='arrow_forward'/>}/>
-            <NavItem buttonTitle='test' icon={<Icon type='arrow_forward'/>}/>
-            <NavItem buttonTitle='test' icon={<Icon type='arrow_forward'/>}/>
+            <NavItem buttonTitle='CANDIED' logoImage='/candy-cane.svg' logoClass='rotate-45' isLogo/>
+            <NavItem buttonTitle='Nodes' icon={<Icon type='lan'/>}/>
+            <NavItem buttonTitle='Messages' icon={<Icon type='mail'/>}/>
+            <NavItem buttonTitle='Signals' icon={<Icon type='sensors'/>}/>
+            <NavItem buttonTitle='Visual' icon={<Icon type='scatter_plot'/>}/>
+            <NavItem buttonTitle='Settings' icon={<Icon type='settings'/>} isFooter/>
         </NavBar>
     </>
 }
