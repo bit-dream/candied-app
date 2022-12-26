@@ -15,7 +15,7 @@ const NavItem = (props: {
         'border border border-gray-300',
         'bg-amber-200',
         'hover:bg-gray-100',
-        'w-12 h-12',
+        'w-10 h-10',
         'mt-3',
         'self-center',
         'duration-300 rounded-[22px] hover:rounded-lg',
@@ -28,6 +28,14 @@ const NavItem = (props: {
         'self-center',
         'cursor-pointer'
     )}
+    let titleClassList = twMerge(
+        `${props.isLogo ? 'text-xs' : 'text-[10px]'}`,
+        'w-full',
+        'flex',
+        'justify-center',
+        'font-semibold',
+        'text-grey-900'
+    );
     return <>
         <div className={mainClassList}>
             <div className='h-full w-full flex items-center justify-center relative object-scale-down text-red-800'>
@@ -35,7 +43,7 @@ const NavItem = (props: {
             </div>
         </div>
         {!props.buttonTitle ? <></> :
-            <div className='text-xs w-full flex justify-center font-semibold text-gray-900'>{props.buttonTitle}</div>
+            <div className={titleClassList}>{props.buttonTitle}</div>
         }
     </>
 }
