@@ -24,17 +24,16 @@ export default function Home() {
       <div className='absolute w-full top-12'>
           <div className='container mx-auto text-center'>
               <div>
-                    <Icon type='arrow_forward'/>
                   {'CANDIED'.split('').map((l: string, k: number)=>{
                       return(
-                      <span className='bg-gray-700 text-7xl odd:text-red-500 even:text-gray-50 font-extrabold' key={k}>
+                      <span className='bg-gray-700 dark:bg-transparent text-7xl odd:text-red-500 even:text-gray-50 font-extrabold' key={k}>
                           {l}
                       </span>
                       );
                   })}
               </div>
               <br/>
-              <p className='text-sm'>A full featured, easy to use, DBC editing platform and visualization tool</p>
+              <p className='text-sm dark:text-white'>A full featured, easy to use, DBC editing platform and visualization tool</p>
           </div>
       </div>
       <div className='absolute w-full bottom-20'>
