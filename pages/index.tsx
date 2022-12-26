@@ -42,14 +42,17 @@ export default function Home() {
                   <LargeInsetButton
                       heading={'Try a Demo'}
                       text={'Visualize a pre-made, demo DBC file'}
+                      href='/demo'
                   />
                   <LargeInsetButton
                       heading={'DBC Editor'}
                       text={'Edit an existing DBC file or create a new one'}
+                      href='/editor'
                   />
                   <LargeInsetButton
                       heading={'DBC Visualization'}
                       text={'Try our DBC visualization tool'}
+                      href='/demo'
                   />
               </ButtonLayout>
           </div>
