@@ -3,6 +3,7 @@ import Image from "next/image";
 import ButtonLayout from "../components/buttons/ButtonLayout";
 import Button from "../components/buttons/Button";
 import LargeInsetButton from "../components/buttons/LargeInsetButton";
+import Icon from '../components/Icon/Icon'
 
 export default function Home() {
   return (
@@ -23,6 +24,7 @@ export default function Home() {
       <div className='absolute w-full top-12'>
           <div className='container mx-auto text-center'>
               <div>
+                    <Icon type='arrow_forward'/>
                   {'CANDIED'.split('').map((l: string, k: number)=>{
                       return(
                       <span className='bg-gray-700 text-7xl odd:text-red-500 even:text-gray-50 font-extrabold' key={k}>
