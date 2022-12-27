@@ -3,14 +3,24 @@ import NavBar from "../components/NavBar/NavBar";
 import NavItem from "../components/NavBar/NavItem";
 import Icon from "../components/Icon/Icon";
 import Image from "next/image";
-import {ReactNode, useState} from "react";
-import {AtRule} from "csstype";
+import {ReactNode, useEffect, useState} from "react";
 import ContentDisplayContainer from "../components/ContentDisplayContainer/ContentDisplayContainer";
+import Dbc from 'dbc-can';
+import {DbcData} from "dbc-can/lib/dbc/types";
+import Modal from "../components/Modal/Modal";
 
-const Editor: NextPage = () => {
+export async function getServerSideProps() {
+    const dbc = new Dbc();
+    dbc.loadSync('public/tesla_can.dbc');
+    // Pass data to the page via props
+    return { props: { data: dbc.toJson({pretty: false}) } }
+}
 
+const Editor: NextPage = (props) => {
+    console.log(props.data)
     type PageSelection = 'Nodes' | 'Messages' | 'Signals' | 'Settings' | 'Upload' | 'Visual'
     const [selection,UseSelection] = useState<PageSelection|undefined>(undefined);
+    const [open, UseOpen] = useState<boolean>(false);
 
     const navBtnClicked = (type: PageSelection) => {
         if (selection === type) {
@@ -20,40 +30,37 @@ const Editor: NextPage = () => {
         }
     }
 
+    useEffect(()=>{
+        if (selection === 'Settings') {
+            UseOpen(true);
+        }
+    },[selection])
+
     let content: ReactNode | HTMLImageElement;
     switch (selection) {
         case 'Nodes':
             content =
             <ContentDisplayContainer>
                 <div className='text-5xl text-white text-center mt-10'>Nodes</div>
-                <div className='inline-block min-w-full overflow-hidden align-middle shadow-lg shadow-slate-900 backdrop-blur-3xl rounded-lg'>
+                <div className='inline-block min-w-full overflow-y-scroll align-middle shadow-2xl shadow-black rounded-lg border border-slate-600'>
                     <table className="text-white min-w-full">
                         <thead>
                         <tr>
-                            <th className='border border-slate-600 bg-slate-600 h-10'>Song</th>
+                            <th className='border border-slate-600 bg-slate-600 sticky'>Song</th>
                             <th className='border border-slate-600 bg-slate-600'>Artist</th>
                             <th className='border border-slate-600 bg-slate-600'>Year</th>
                         </tr>
                         </thead>
                         <tbody>
                         <tr>
-                            <td className='border border-slate-900 bg-slate-900'>The Sliding Mr. Bones (Next Stop, Pottersville)</td>
+                            <td className='border border-slate-900 bg-slate-900 hover:bg-yellow-200'>The Sliding Mr. Bones (Next Stop, Pottersville)</td>
                             <td className='border border-slate-900 bg-slate-900'>Malcolm Lockyer</td>
                             <td className='border border-slate-900 bg-slate-900'>1961</td>
-                        </tr>
-                        <tr>
-                            <td className='border border-slate-900 bg-slate-900'>Witchy Woman</td>
-                            <td className='border border-slate-900 bg-slate-900'>The Eagles</td>
-                            <td className='border border-slate-900 bg-slate-900'>1972</td>
-                        </tr>
-                        <tr>
-                            <td className='border border-slate-900 bg-slate-900'>Shining Star</td>
-                            <td className='border border-slate-900 bg-slate-900'>Earth, Wind, and Fire</td>
-                            <td className='border border-slate-900 bg-slate-900'>1975</td>
                         </tr>
                         </tbody>
                     </table>
                 </div>
+                <div className='text-5xl text-white text-center mt-10'>Nodes</div>
             </ContentDisplayContainer>
             break;
         case 'Messages':
@@ -88,6 +95,7 @@ const Editor: NextPage = () => {
             </NavBar>
             {content}
         </div>
+        <Modal isOpen={open}/>
     </>
 }
 export default Editor;
