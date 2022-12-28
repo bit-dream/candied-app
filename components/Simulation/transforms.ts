@@ -1,7 +1,13 @@
 import type { DbcData, Message, Signal, Node } from "dbc-can/lib/dbc/Dbc";
 import type { Graph, GraphLinkProps, GraphNodeProps } from './types';
 
-const createGraph = (data: DbcData) => {
+const createGraph = (
+    data: DbcData,
+    networkImage: string,
+    nodeImage: string,
+    messageImage: string,
+    signalImage: string
+) => {
 
     let graph: Graph = {
         nodes: new Array(), 
@@ -16,7 +22,7 @@ const createGraph = (data: DbcData) => {
         radius: 5,
         obj: null,
         type: 'network',
-        image: '/images/network-tree-svgrepo-com.svg'
+        image: networkImage
     });
 
     data.nodes.forEach((node: Node) => {
@@ -27,7 +33,7 @@ const createGraph = (data: DbcData) => {
             radius: 30,
             obj: node,
             type: 'node',
-            image: '/images/cpu-svgrepo-com.svg'
+            image: nodeImage
         });
         // Create link from message to network
         graph.links.push({
@@ -45,7 +51,7 @@ const createGraph = (data: DbcData) => {
             radius: message.dlc,
             obj: message,
             type: 'message',
-            image: '/images/mail-svgrepo-com.svg'
+            image: messageImage
         });
         
         let messageNode;
@@ -84,7 +90,7 @@ const createGraph = (data: DbcData) => {
                 radius: signal.length,
                 obj: signal,
                 type: 'signal',
-                image: '/images/letter-s-svgrepo-com.svg'
+                image: signalImage
             })
 
             // Create link from message to signal

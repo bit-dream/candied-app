@@ -10,6 +10,7 @@ import Dbc from 'dbc-can';
 import {DbcData} from "dbc-can/lib/dbc/Dbc";
 const Simulation = require('../components/Simulation/simulation');
 import createGraph from "../components/Simulation/transforms";
+import NodeEditor from "../components/NodeEditor/NodeEditor";
 
 const Editor: NextPage = (props) => {
     type PageSelection = 'Nodes' | 'Messages' | 'Signals' | 'Settings' | 'Upload' | 'Visual'
@@ -80,7 +81,13 @@ BO_TX_BU_ 4321 : Node0,Node2;
 
     useEffect(()=>{
         if (dbcData && selection === 'Visual') {
-            let graph = createGraph( dbcData);
+            let graph = createGraph(
+                dbcData,
+                '/network-tree-svgrepo-com.svg',
+                '/cpu-svgrepo-com.svg',
+                '/mail-svgrepo-com.svg',
+                '/letter-s-svgrepo-com.svg'
+            );
             let simulation = new Simulation.default('SIMULATION',graph)
             simulation.init();
         }
@@ -103,10 +110,7 @@ BO_TX_BU_ 4321 : Node0,Node2;
     let content: ReactNode | HTMLImageElement;
     switch (selection) {
         case 'Nodes':
-            content =
-            <ContentDisplayContainer>
-                <div className='text-5xl text-white text-center mt-10'>Nodes</div>
-            </ContentDisplayContainer>
+            content = <NodeEditor data={dbcData}/>
             break;
         case 'Messages':
             content = <div className='text-center text-white'>Messages</div>
@@ -121,7 +125,7 @@ BO_TX_BU_ 4321 : Node0,Node2;
             content = <div className='text-center text-white'>Nodes</div>
             break;
         case 'Visual':
-            content = <div id='SIMULATION'></div>
+            content = <ContentDisplayContainer><div id='SIMULATION'></div></ContentDisplayContainer>
             break;
         case undefined:
             content = <Image src='/Data storage_Monochromatic.svg' fill alt='Background' className='-z-10 object-scale-down'/>;

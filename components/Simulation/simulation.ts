@@ -110,6 +110,7 @@ class Simulation {
 
         let text = group.append('text')
             .attr('text-anchor', 'middle')
+            .attr('fill','white')
             .attr('y', (d:any)=>{
                 if (d.type === 'message') {
                     return '45px'
