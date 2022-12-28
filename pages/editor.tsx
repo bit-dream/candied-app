@@ -4,17 +4,19 @@ import NavItem from "../components/NavBar/NavItem";
 import Icon from "../components/Icon/Icon";
 import Image from "next/image";
 import {ReactNode, useEffect, useState} from "react";
-import ContentDisplayContainer from "../components/ContentDisplayContainer/ContentDisplayContainer";
+import ContentDisplay from "../components/ContentDisplayContainer/ContentDisplay";
 import Modal from "../components/Modal/Modal";
 import Dbc from 'dbc-can';
 import {DbcData} from "dbc-can/lib/dbc/Dbc";
 const Simulation = require('../components/Simulation/simulation');
 import createGraph from "../components/Simulation/transforms";
 import NodeEditor from "../components/NodeEditor/NodeEditor";
+import DbcSimulation from "../components/Simulation/DbcSimulation";
 
+
+export type PageSelection = 'Nodes' | 'Messages' | 'Signals' | 'Settings' | 'Upload' | 'Visual' | undefined
 const Editor: NextPage = (props) => {
-    type PageSelection = 'Nodes' | 'Messages' | 'Signals' | 'Settings' | 'Upload' | 'Visual'
-    const [selection,UseSelection] = useState<PageSelection|undefined>(undefined);
+    const [selection,UseSelection] = useState<PageSelection>(undefined);
     const [open, UseOpen] = useState<boolean>(false);
     const [dbcData, UseDbcData] = useState<DbcData|undefined>(undefined);
 
@@ -49,7 +51,7 @@ BO_ 4321 CANMultiplexed: 2 Node0
     SG_ Value1 m1 : 8|8@1+ (1,0) [0|0] "" Node1
 
 CM_ "DBC Template with multiline description";
-CM_ BU_ Node0 "The 0th Node";
+CM_ BU_ Node0 "The 0th Node this is really just a test for a really really really really long message ok here it goes now asjkf;lasdl;fkjasd ;lfkjasdf l;kajsdf l;ksadfj;lsafdjk s;ladkfjasl;dfk jsal;dfk jas;ldfk jas;ldfk jasd;flk jasdf;l kjasdfl ;kjasdfl;kjasdf l;kj";
 CM_ BO_ 4321 "Multiplexed CAN-Message";
 CM_ SG_ 1234 Signal0 "First signal in this message";
 
@@ -110,7 +112,6 @@ BO_TX_BU_ 4321 : Node0,Node2;
     let content: ReactNode | HTMLImageElement;
     switch (selection) {
         case 'Nodes':
-            content = <NodeEditor data={dbcData}/>
             break;
         case 'Messages':
             content = <div className='text-center text-white'>Messages</div>
@@ -125,7 +126,7 @@ BO_TX_BU_ 4321 : Node0,Node2;
             content = <div className='text-center text-white'>Nodes</div>
             break;
         case 'Visual':
-            content = <ContentDisplayContainer><div id='SIMULATION'></div></ContentDisplayContainer>
+            //content = <ContentDisplay><div id='SIMULATION'></div></ContentDisplay>
             break;
         case undefined:
             content = <Image src='/Data storage_Monochromatic.svg' fill alt='Background' className='-z-10 object-scale-down'/>;
@@ -142,7 +143,8 @@ BO_TX_BU_ 4321 : Node0,Node2;
                 <NavItem buttonTitle='Upload' icon={<Icon type='upload_file'/>} onClick={()=>navBtnClicked('Upload')}/>
                 <NavItem buttonTitle='Settings' icon={<Icon type='settings'/>} onClick={()=>navBtnClicked('Settings')}/>
             </NavBar>
-            {content}
+            <NodeEditor data={dbcData} pageSelector={selection}/>
+            <DbcSimulation data={dbcData} pageSelector={selection}/>
         </div>
         <Modal isOpen={open}/>
     </>

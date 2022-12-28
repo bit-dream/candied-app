@@ -21,7 +21,10 @@ class Simulation {
         chargeStrength: -500,
         centeringStrength: 0.07,
         baseRadius: 20,
-        linkLength: 200
+        linkLength: 200,
+        fontColor: 'white',
+        borderColor: '#000',
+        fillColor: '#FFF'
     };
 
     // Class properties
@@ -58,6 +61,7 @@ class Simulation {
     }
 
     init() {
+        d3.select(this.selector).html("");
         this.createMainContainer();
         this.createLinks();
         this.createNodes();
@@ -98,8 +102,8 @@ class Simulation {
 
         let circle = group.append("circle")
             .attr("r", (d:any) => {return this.computeRadius(d)})
-            .attr('fill', '#fff')
-            .attr('stroke', '#000');
+            .attr('fill', this.settings.fillColor)
+            .attr('stroke', this.settings.borderColor);
         
         let image = group.append('image')
             .attr('x','-15px')
@@ -110,7 +114,7 @@ class Simulation {
 
         let text = group.append('text')
             .attr('text-anchor', 'middle')
-            .attr('fill','white')
+            .attr('fill',this.settings.fontColor)
             .attr('y', (d:any)=>{
                 if (d.type === 'message') {
                     return '45px'
@@ -178,20 +182,11 @@ class Simulation {
     createMainContainer() {
         this.mainContainer = 
             d3.select(this.selector)
-                .style('display', 'inline-block')
-                .style('position','relative')
-                .style('width', '100%')
-                .style('padding-bottom', '0%')
-                .style('vertical-align','top')
-                .style('overflow','hidden')
                 .append('svg')
                 .attr('id', 'simulationContainer')
                 .attr("preserveAspectRatio", "xMinYMin meet")
                 .attr("viewBox", `0 0 ${this.width} ${this.height}`)
                 .style('display', 'inline-block')
-                .style('position', 'absolute')
-                .style('top', '10px')
-                .style('left', '0')
                 // @ts-ignore
                 .call(d3.zoom().on("zoom", (event: any, d: any) => {
                     this.mainContainer.attr("transform", event.transform);
