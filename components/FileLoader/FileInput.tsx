@@ -1,38 +1,55 @@
+import React from "react";
+
 interface Props {
     onFileLoad: (fileContents: string) => void;
 }
 
 const FileInput: React.FC<Props> = ({ onFileLoad }) => {
+
+    const processFile = (file: File) => {
+        // Validate the file extension
+        if (file.name.endsWith('.dbc')) {
+            // Create a FileReader instance
+            const fileReader = new FileReader();
+
+            // Set the onload event handler
+            fileReader.onload = (event) => {
+                // Get the file contents
+                if (event && event.target) {
+                    event.preventDefault();
+                    console.log(event)
+                    const fileContents = event.target.result as string;
+
+                    // Call the onFileLoad callback with the file contents
+                    onFileLoad(fileContents);
+                }
+            };
+            // Read the file contents
+            fileReader.readAsText(file);
+        }
+    }
+
     const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         // Get the selected file
         let file: File | null;
         const {files} = event.target;
         if (files) {
             file = files[0];
-
-            // Validate the file extension
-            if (file.name.endsWith('.dbc')) {
-                // Create a FileReader instance
-                const fileReader = new FileReader();
-
-                // Set the onload event handler
-                fileReader.onload = (event) => {
-                    // Get the file contents
-                    if (event && event.target) {
-                        const fileContents = event.target.result as string;
-
-                        // Call the onFileLoad callback with the file contents
-                        onFileLoad(fileContents);
-                    }
-                };
-
-                // Read the file contents
-                fileReader.readAsText(file);
-            }
+            processFile(file);
         }
     };
+
+    const handleDropEvent = (event: any) =>{
+        event.preventDefault();
+        const items = event.dataTransfer.items;
+        const file = items[0];
+        if (file && file.kind === 'file') {
+            const dbcFile = file.getAsFile();
+            processFile(dbcFile);
+        }
+    }
     return (
-        <div className="flex items-center justify-center w-full">
+        <div className="flex items-center justify-center w-full" onDrop={handleDropEvent} onDragOver={(event)=>{event.preventDefault()}}>
             <label htmlFor="dropzone-file"
                    className="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
                 <div className="flex flex-col items-center justify-center pt-5 pb-6">

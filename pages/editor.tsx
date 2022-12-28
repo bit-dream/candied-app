@@ -8,8 +8,6 @@ import ContentDisplay from "../components/ContentDisplayContainer/ContentDisplay
 import Modal from "../components/Modal/Modal";
 import Dbc from 'dbc-can';
 import {DbcData} from "dbc-can/lib/dbc/Dbc";
-const Simulation = require('../components/Simulation/simulation');
-import createGraph from "../components/Simulation/transforms";
 import NodeEditor from "../components/NodeEditor/NodeEditor";
 import DbcSimulation from "../components/Simulation/DbcSimulation";
 import FileLoader from "../components/FileLoader/FileLoader";
@@ -36,6 +34,15 @@ const Editor: NextPage = (props) => {
         if (selection === 'Settings') {
             UseOpen(true);
         }
+        if (selection === 'Nodes') {
+            if (dbcData) {
+                dbcData.messages.set(
+                    'ASDF',
+                    dbc.createMessage('ASDF',10000,3)
+                )
+            }
+            UseDbcData(dbcData)
+        }
     },[selection])
 
     return <>
@@ -57,7 +64,7 @@ const Editor: NextPage = (props) => {
                         pageSelector={selection}
                         onFileLoad={(content)=>{UseDbcData(dbc.load(content))}}/>
             <ContentDisplay isDisplayed={selection===undefined}>
-                <Image src='/Data storage_Monochromatic.svg' fill alt='Background' className='-z-10 object-scale-down'/>;
+                <Image src='/Data storage_Monochromatic.svg' fill alt='Background' className='-z-10 object-scale-down'/>
             </ContentDisplay>
         </div>
         <Modal isOpen={open}/>
