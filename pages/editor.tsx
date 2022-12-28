@@ -6,15 +6,85 @@ import Image from "next/image";
 import {ReactNode, useEffect, useState} from "react";
 import ContentDisplayContainer from "../components/ContentDisplayContainer/ContentDisplayContainer";
 import Modal from "../components/Modal/Modal";
-import FileInput from "../components/FileLoader/FileInput";
 import Dbc from 'dbc-can';
+import {DbcData} from "dbc-can/lib/dbc/Dbc";
+const Simulation = require('../components/Simulation/simulation');
+import createGraph from "../components/Simulation/transforms";
 
 const Editor: NextPage = (props) => {
     type PageSelection = 'Nodes' | 'Messages' | 'Signals' | 'Settings' | 'Upload' | 'Visual'
     const [selection,UseSelection] = useState<PageSelection|undefined>(undefined);
     const [open, UseOpen] = useState<boolean>(false);
+    const [dbcData, UseDbcData] = useState<DbcData|undefined>(undefined);
 
-    const dbc = new Dbc();
+    useEffect(()=>{
+        const dbc = new Dbc();
+        dbc.load(
+            `
+VERSION "1.0"
+
+NS_:
+    BU_
+    BS_
+    BO_
+    CM_
+    BA_DEF_
+    BA_DEF_DEF_
+    VAL_TABLE_
+    VAL_
+    BO_TX_BU_
+
+BU_: Node0 Node1 Node2
+
+BS_: 500
+
+BO_ 1234 CANMessage: 8 Node0
+    SG_ Signal0 : 0|32@1- (1,0) [0|0] "" Node1,Node2
+    SG_ Signal1 : 32|32@1+ (100,0) [0|100] "%" Node1,Node2
+
+BO_ 4321 CANMultiplexed: 2 Node0
+    SG_ Multiplexer M : 0|8@1+ (1,0) [0|0] "" Node1
+    SG_ Value0 m0 : 8|8@1+ (1,0) [0|0] "" Node1
+    SG_ Value1 m1 : 8|8@1+ (1,0) [0|0] "" Node1
+
+CM_ "DBC Template with multiline description";
+CM_ BU_ Node0 "The 0th Node";
+CM_ BO_ 4321 "Multiplexed CAN-Message";
+CM_ SG_ 1234 Signal0 "First signal in this message";
+
+BA_DEF_ "FloatAttribute" FLOAT 0 50.5;
+BA_DEF_ BO_ "BOStringAttribute" STRING;
+BA_DEF_ BU_ "BUIntAttribute" INT 0 100;
+BA_DEF_ SG_ "SGEnumAttribute" ENUM "Val0", "Val1", "Val2";
+
+BA_DEF_DEF_ "FloatAttribute" 25.25;
+BA_DEF_DEF_ "BOStringAttribute" "String";
+BA_DEF_DEF_ "BUIntAttribute" 50;
+BA_DEF_DEF_ "SGEnumAttribute" 1;
+
+BA_ "FloatAttribute" 45.9;
+BA_ "BUIntAttribute" BU_ Node0 100;
+BA_ "BOStringAttribute" BO_ 1234 "MessageAttribute";
+BA_ "SGEnumAttribute" SG_ 1234 Signal0 2;
+
+VAL_TABLE_ Numbers 3 "Three" 2 "Two" 1 "One" 0 "Zero";
+VAL_ 4321 Value0 2 "Value2" 1 "Value1" 0 "Value0";
+VAL_ 4321 Value1 Numbers;
+
+BO_TX_BU_ 4321 : Node0,Node2;
+        `
+        );
+        UseDbcData(dbc.data);
+    },[])
+    console.log(dbcData)
+
+    useEffect(()=>{
+        if (dbcData && selection === 'Visual') {
+            let graph = createGraph( dbcData);
+            let simulation = new Simulation.default('SIMULATION',graph)
+            simulation.init();
+        }
+    },[dbcData,selection])
 
     const navBtnClicked = (type: PageSelection) => {
         if (selection === type) {
@@ -36,25 +106,6 @@ const Editor: NextPage = (props) => {
             content =
             <ContentDisplayContainer>
                 <div className='text-5xl text-white text-center mt-10'>Nodes</div>
-                <div className='inline-block min-w-full overflow-y-scroll align-middle shadow-2xl shadow-black rounded-lg border border-slate-600'>
-                    <table className="text-white min-w-full">
-                        <thead>
-                        <tr>
-                            <th className='border border-slate-600 bg-slate-600 sticky'>Song</th>
-                            <th className='border border-slate-600 bg-slate-600'>Artist</th>
-                            <th className='border border-slate-600 bg-slate-600'>Year</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr>
-                            <td className='border border-slate-900 bg-slate-900 hover:bg-yellow-200'>The Sliding Mr. Bones (Next Stop, Pottersville)</td>
-                            <td className='border border-slate-900 bg-slate-900'>Malcolm Lockyer</td>
-                            <td className='border border-slate-900 bg-slate-900'>1961</td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
-                <div className='text-5xl text-white text-center mt-10'>Nodes</div>
             </ContentDisplayContainer>
             break;
         case 'Messages':
@@ -70,7 +121,7 @@ const Editor: NextPage = (props) => {
             content = <div className='text-center text-white'>Nodes</div>
             break;
         case 'Visual':
-            content = <div className='text-center text-white'>Nodes</div>
+            content = <div id='SIMULATION'></div>
             break;
         case undefined:
             content = <Image src='/Data storage_Monochromatic.svg' fill alt='Background' className='-z-10 object-scale-down'/>;
@@ -88,7 +139,6 @@ const Editor: NextPage = (props) => {
                 <NavItem buttonTitle='Settings' icon={<Icon type='settings'/>} onClick={()=>navBtnClicked('Settings')}/>
             </NavBar>
             {content}
-            <FileInput onFileLoad={fileContents => {dbc.load(fileContents); console.log(dbc.data)}}/>
         </div>
         <Modal isOpen={open}/>
     </>
