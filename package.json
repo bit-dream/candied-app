@@ -14,7 +14,7 @@
     "@types/react": "18.0.26",
     "@types/react-dom": "18.0.9",
     "clsx": "^1.2.1",
-    "dbc-can": "^1.6.0",
+    "dbc-can": "file:/Users/headquarters/Documents/Code/can-dbc/dbc-can-1.6.0.tgz",
     "eslint": "8.30.0",
     "eslint-config-next": "13.1.0",
     "next": "13.1.0",

@@ -5,22 +5,16 @@ import Icon from "../components/Icon/Icon";
 import Image from "next/image";
 import {ReactNode, useEffect, useState} from "react";
 import ContentDisplayContainer from "../components/ContentDisplayContainer/ContentDisplayContainer";
-import Dbc from 'dbc-can';
-import {DbcData} from "dbc-can/lib/dbc/types";
 import Modal from "../components/Modal/Modal";
-
-export async function getServerSideProps() {
-    const dbc = new Dbc();
-    dbc.loadSync('public/tesla_can.dbc');
-    // Pass data to the page via props
-    return { props: { data: dbc.toJson({pretty: false}) } }
-}
+import FileInput from "../components/FileLoader/FileInput";
+import Dbc from 'dbc-can';
 
 const Editor: NextPage = (props) => {
-    console.log(props.data)
     type PageSelection = 'Nodes' | 'Messages' | 'Signals' | 'Settings' | 'Upload' | 'Visual'
     const [selection,UseSelection] = useState<PageSelection|undefined>(undefined);
     const [open, UseOpen] = useState<boolean>(false);
+
+    const dbc = new Dbc();
 
     const navBtnClicked = (type: PageSelection) => {
         if (selection === type) {
@@ -94,6 +88,7 @@ const Editor: NextPage = (props) => {
                 <NavItem buttonTitle='Settings' icon={<Icon type='settings'/>} onClick={()=>navBtnClicked('Settings')}/>
             </NavBar>
             {content}
+            <FileInput onFileLoad={fileContents => {dbc.load(fileContents); console.log(dbc.data)}}/>
         </div>
         <Modal isOpen={open}/>
     </>
