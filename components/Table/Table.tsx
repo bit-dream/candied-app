@@ -23,7 +23,6 @@ const Table:React.FC<Props> = ({headings,rows}) => {
         'inline-block',
         'min-w-full',
         'overflow-y-scroll',
-        'overflow-x-hidden',
         'align-middle',
         'shadow-lg',
         'shadow-black',
@@ -35,7 +34,7 @@ const Table:React.FC<Props> = ({headings,rows}) => {
     return(
     <>
         <div className={classList}>
-            <table className="min-w-full">
+            <table className="min-w-full relative">
                 <thead>
                 <tr>
                     {tableHeadings}

@@ -8,7 +8,7 @@ interface Props {
 const TableRow:React.FC<Props> = ({key,rowData}) =>{
     const tableItem = twMerge(
         'border',
-        'dark:border-slate-900',
+        'dark:border-slate-600',
         'dark:bg-slate-900',
         'dark:text-white',
         'text-black',
@@ -17,6 +17,7 @@ const TableRow:React.FC<Props> = ({key,rowData}) =>{
     )
     const tableRow = twMerge(
         'hover:bg-amber-200',
+        'hover:dark:bg-amber-200',
         'cursor-pointer'
     )
     return <>

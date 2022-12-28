@@ -25,7 +25,7 @@ const DbcSimulation:React.FC<Props> = ({data, pageSelector}) => {
             simulation.settings.fontColor = isDarkMode ? 'white': 'black';
             simulation.init();
         }
-    },[data])
+    },[data, pageSelector])
 
     return(
         <ContentDisplay isDisplayed={pageSelector === 'Visual'} noDecoration>
