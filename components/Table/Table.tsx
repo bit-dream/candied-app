@@ -40,9 +40,9 @@ const Table:React.FC<Props> = ({headings,rows}) => {
                 generateTableRows(
                 rows.filter(row=>{
                     for (const r of row) {
-                        if ((typeof(r) ==='string') && r.includes(searchString)) {
+                        if ((typeof(r) ==='string' || typeof(r) === 'number') &&
+                            r.toString().toLowerCase().includes(searchString.toLowerCase())) {
                             return true;
-                            break;
                         }
                     }
                 })
