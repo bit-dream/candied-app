@@ -1,9 +1,11 @@
 import ContentDisplay from "../ContentDisplayContainer/ContentDisplay";
 import Table from "../Table/Table";
 import {DbcData, Message, Signal} from "dbc-can/lib/dbc/Dbc";
-import {PageSelection} from "../../pages/editor";
 import React from "react";
 import TableRow from "../Table/TableRow";
+import Button from "../buttons/Button";
+import Icon from "../Icon/Icon";
+import {PageSelection} from "../DbcEditor/DbcEditor";
 
 interface Props {
     data: DbcData|undefined;
@@ -27,13 +29,15 @@ const MessageEditor:React.FC<Props> = ({data, pageSelector}) => {
 
     return(
         <ContentDisplay isDisplayed={pageSelector === 'Messages'}>
-            {data ?
+            {data && data.messages.size ?
                 <Table
                     headings={['Name','ID','DLC', 'Node', 'Description']}
                     rows={createMessageRows(data.messages)}
                 />
-                : <></>
+                : <div className='text-5xl text-center'>No Data</div>
             }
+            <div className='mt-5'/>
+            <Button text='' color='secondary' icon={<Icon type='add'/>} fullWidth/>
         </ContentDisplay>
     );
 }

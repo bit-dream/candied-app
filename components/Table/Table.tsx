@@ -26,9 +26,9 @@ const Table:React.FC<Props> = ({headings,rows}) => {
         'align-middle',
         'shadow-lg',
         'shadow-black',
-        'rounded-lg',
-        'border',
-        'dark:border-slate-600'
+        'rounded-lg'
+        //'border',
+        //'dark:border-slate-600'
     )
 
     return(

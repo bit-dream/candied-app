@@ -45,7 +45,7 @@ export default function Home() {
                       href='/demo'
                   />
                   <LargeInsetButton
-                      heading={'DBC Editor'}
+                      heading={'DBC DbcEditor'}
                       text={'Edit an existing DBC file or create a new one'}
                       href='/editor'
                   />

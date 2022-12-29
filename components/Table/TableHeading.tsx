@@ -7,12 +7,12 @@ interface Props {
 }
 
 const classList = twMerge(
-    'border',
-    'dark:border-slate-600',
+    //'border',
+    //'dark:border-slate-600',
     'bg-slate-600',
     'text-white',
     'p-3',
-    'sticky top-0'
+    'sticky top-0',
 )
 const TableHeading:React.FC<Props> = ({key,heading}) =>{
     return <th key={key} className={classList}>{heading}</th>
