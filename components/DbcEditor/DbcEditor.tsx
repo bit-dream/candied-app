@@ -17,7 +17,12 @@ import Toast from "../Toast/Toast";
 
 
 export type PageSelection = 'Nodes' | 'Messages' | 'Signals' | 'Settings' | 'Upload' | 'Visual' | undefined
-const DbcEditor:React.FC = () => {
+
+interface Props {
+    data?: DbcData;
+}
+
+const DbcEditor:React.FC<Props> = ({data}) => {
     const [selection,UseSelection] = useState<PageSelection>(undefined);
     const [open, UseOpen] = useState<boolean>(false);
     const [dbcData, UseDbcData] = useState<DbcData|undefined>(undefined);
@@ -27,6 +32,13 @@ const DbcEditor:React.FC = () => {
         icon: 'task_alt'
     })
     const dbc = new Dbc();
+
+    // Used so that we can pre-load data from a previous session
+    useEffect(()=>{
+        if (data) {
+            UseDbcData(data);
+        }
+    },[])
 
     const navBtnClicked = (type: PageSelection) => {
         if (selection === type) {

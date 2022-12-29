@@ -46,7 +46,7 @@ const SignalEditor:React.FC<Props> = ({data, pageSelector}) => {
                 : <div className='text-5xl text-center'>No Data</div>
             }
             <div className='mt-5'/>
-            <Button text='' color='secondary' icon={<Icon type='add'/>} fullWidth/>
+            <Button text='' color='info' icon={<Icon type='add'/>} fullWidth/>
         </ContentDisplay>
     );
 }
