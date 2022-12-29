@@ -13,6 +13,7 @@ import DbcSimulation from "../components/Simulation/DbcSimulation";
 import FileLoader from "../components/FileLoader/FileLoader";
 import SignalEditor from "../components/SignalEditor/SignalEditor";
 import MessageEditor from "../components/MessageEditor/MessageEditor";
+import Toast from "../components/Toast/Toast";
 
 
 export type PageSelection = 'Nodes' | 'Messages' | 'Signals' | 'Settings' | 'Upload' | 'Visual' | undefined
@@ -20,6 +21,11 @@ const Editor: NextPage = (props) => {
     const [selection,UseSelection] = useState<PageSelection>(undefined);
     const [open, UseOpen] = useState<boolean>(false);
     const [dbcData, UseDbcData] = useState<DbcData|undefined>(undefined);
+    const [toast, UseToast] = useState({
+        isOpen: false,
+        message: 'Toast',
+        icon: 'task_alt'
+    })
     const dbc = new Dbc();
 
     const navBtnClicked = (type: PageSelection) => {
@@ -45,6 +51,22 @@ const Editor: NextPage = (props) => {
         }
     },[selection])
 
+    const fileUpload = (fileContent: string) => {
+        UseDbcData(dbc.load(fileContent));
+        UseToast({
+            isOpen: true,
+            message: 'File successfully uploaded',
+            icon: 'info'
+        })
+        setTimeout(()=>{
+            UseToast({
+                isOpen: false,
+                message: '',
+                icon: 'info'
+            })
+        },5000)
+    }
+
     return <>
         <div className='flex flex-row'>
             <NavBar>
@@ -62,12 +84,13 @@ const Editor: NextPage = (props) => {
             <DbcSimulation data={dbcData} pageSelector={selection}/>
             <FileLoader data={dbcData}
                         pageSelector={selection}
-                        onFileLoad={(content)=>{UseDbcData(dbc.load(content))}}/>
+                        onFileLoad={fileUpload}/>
             <ContentDisplay isDisplayed={selection===undefined}>
                 <Image src='/Data storage_Monochromatic.svg' fill alt='Background' className='-z-10 object-scale-down'/>
             </ContentDisplay>
         </div>
         <Modal isOpen={open}/>
+        <Toast message={toast.message} icon={toast.icon} isOpen={toast.isOpen}/>
     </>
 }
 export default Editor;
