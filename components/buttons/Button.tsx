@@ -11,6 +11,7 @@ interface Props {
     href?: string;
     fullWidth?: boolean;
     icon?: ReactNode;
+    noShadow?: boolean
 }
 const Button:React.FC<Props> = ({
     text,
@@ -19,7 +20,8 @@ const Button:React.FC<Props> = ({
     rounded,
     href,
     fullWidth,
-    icon
+    icon,
+    noShadow
 }) => {
 
     let btnColor: string; let brdColor: string; let hvrColor: string; let drkHoverColor: string;
@@ -63,14 +65,15 @@ const Button:React.FC<Props> = ({
     }
 
     const classList = twMerge(
-        `p-1`,
+        `pt-2 pb-2`,
         `border`,
         btnColor,
         brdColor,
         hvrColor,
         `rounded-md`,
-        `shadow-md`,
-        `hover:shadow-sm`,
+        `pl-6 pr-6`,
+        noShadow ? '' : `shadow-md`,
+        noShadow ? '' : `hover:shadow-sm`,
         drkHoverColor,
         fullWidth ? 'min-w-full' : ''
     )

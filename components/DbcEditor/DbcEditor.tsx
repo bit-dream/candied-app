@@ -14,6 +14,9 @@ import FileLoader from "../FileLoader/FileLoader";
 import SignalEditor from "../SignalEditor/SignalEditor";
 import MessageEditor from "../MessageEditor/MessageEditor";
 import Toast from "../Toast/Toast";
+import Button from "../buttons/Button";
+import ButtonLayout from "../buttons/ButtonLayout";
+import QuickAddModal from "../Modal/QuickAddModal";
 
 
 export type PageSelection = 'Nodes' | 'Messages' | 'Signals' | 'Settings' | 'Upload' | 'Visual' | undefined
@@ -101,7 +104,7 @@ const DbcEditor:React.FC<Props> = ({data}) => {
                 <Image src='/Data storage_Monochromatic.svg' fill alt='Background' className='-z-10 object-scale-down'/>
             </ContentDisplay>
         </div>
-        <Modal isOpen={open}/>
+        <QuickAddModal isOpen={true}/>
         <Toast message={toast.message} icon={toast.icon} isOpen={toast.isOpen}/>
     </>
 }
