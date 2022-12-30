@@ -3,7 +3,7 @@ import Table from "../Table/Table";
 import {DbcData, Message, Signal} from "dbc-can/lib/dbc/Dbc";
 import React from "react";
 import TableRow from "../Table/TableRow";
-import Button from "../buttons/Button";
+import Button from "../Buttons/Button";
 import Icon from "../Icon/Icon";
 import {PageSelection} from "../DbcEditor/DbcEditor";
 

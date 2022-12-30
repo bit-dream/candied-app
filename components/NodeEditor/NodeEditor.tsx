@@ -3,8 +3,8 @@ import Table from "../Table/Table";
 import {DbcData, Node} from "dbc-can/lib/dbc/Dbc";
 import React, {useState} from "react";
 import TableRow from "../Table/TableRow";
-import ButtonLayout from "../buttons/ButtonLayout";
-import Button from "../buttons/Button";
+import ButtonLayout from "../Buttons/ButtonLayout";
+import Button from "../Buttons/Button";
 import {PageSelection} from "../DbcEditor/DbcEditor";
 import Icon from "../Icon/Icon";
 import QuickAddModal from "../Modal/QuickAddModal";
@@ -38,7 +38,7 @@ const NodeEditor:React.FC<Props> = ({data, pageSelector}) => {
                 fullWidth
                 onClick={()=>{UseModelOpen(true)}}/>
         </ContentDisplay>
-        <QuickAddModal isOpen={modalOpen}/>
+        <QuickAddModal UseOpen={UseModelOpen} isOpen={modalOpen}/>
         </>
 }
 export default NodeEditor;

@@ -1,5 +1,5 @@
 import {twMerge} from "tailwind-merge";
-import Button from "../buttons/Button";
+import Button from "../Buttons/Button";
 import Icon from "../Icon/Icon";
 import ModalBody from "./ModalBody";
 import React, {ReactNode} from "react";

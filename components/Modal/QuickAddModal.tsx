@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import Button from "../buttons/Button";
+import Button from "../Buttons/Button";
 import Modal from "./Modal";
 import Tabs from '../Tabs/Tabs'
 import MessageBody from "./MessageBody";
@@ -7,9 +7,10 @@ import NodeBody from "./NodeBody";
 import SignalBody from "./SignalBody";
 
 interface Props {
+    UseOpen:  React.Dispatch<React.SetStateAction<boolean>>;
     isOpen: boolean;
 }
-const QuickAddModal:React.FC<Props> = ({isOpen}) => {
+const QuickAddModal:React.FC<Props> = ({isOpen,UseOpen}) => {
 
     const [tabSelected,UseTabSelected] = useState<string>('Node');
 
@@ -18,7 +19,9 @@ const QuickAddModal:React.FC<Props> = ({isOpen}) => {
     const [signalName,UseSignalName] = useState<string>('');
     const [selectedMessage,UseSelectedMessage] = useState<string>('');
     const [nodeName,UseNodeName] = useState<string>('');
-    const [nodeDescription,UseNodeDescription] = useState<string>('');
+    const [messageName,UseMessageName] = useState<string>('');
+    const [messageDlc,UseMessageDlc] = useState<number>(8);
+    const [messageId,UseMessageId] = useState<number>(0);
 
     const tabClicked = (event: React.MouseEvent<HTMLButtonElement>) => {
         let button = event.target as HTMLButtonElement;
@@ -27,7 +30,7 @@ const QuickAddModal:React.FC<Props> = ({isOpen}) => {
         }
     }
 
-    console.log(startBit,signalLength,signalName,selectedMessage)
+    console.log(startBit,signalLength,signalName,selectedMessage,messageName,messageId)
 
     return(
     <Modal
@@ -42,9 +45,13 @@ const QuickAddModal:React.FC<Props> = ({isOpen}) => {
                 />
                 {
                     (tabSelected === 'Node') ?
-                        <NodeBody/> :
+                        <NodeBody UseNodeName={UseNodeName}/> :
                     (tabSelected === 'Message') ?
-                        <MessageBody/> :
+                        <MessageBody
+                            UseMessageName={UseMessageName}
+                            UseMessageId={UseMessageId}
+                            UseMessageDlc={UseMessageDlc}
+                        /> :
                     (tabSelected === 'Signal') ?
                         <SignalBody
                             UseSignalLength={UseSignalLength}
@@ -52,7 +59,7 @@ const QuickAddModal:React.FC<Props> = ({isOpen}) => {
                             UseSelectedMessage={UseSelectedMessage}
                             UseSignalName={UseSignalName}
                         /> :
-                        <NodeBody/>
+                        <NodeBody UseNodeName={UseNodeName}/>
                 }
             </>
         }
@@ -60,7 +67,7 @@ const QuickAddModal:React.FC<Props> = ({isOpen}) => {
             <>
                 <div>
                     <Button text='Add' color='info' noShadow/>
-                    <Button text='Close' color='danger' noShadow/>
+                    <Button text='Close' color='danger' noShadow onClick={()=>UseOpen(false)}/>
                 </div>
             </>
         }

@@ -14,8 +14,8 @@ import FileLoader from "../FileLoader/FileLoader";
 import SignalEditor from "../SignalEditor/SignalEditor";
 import MessageEditor from "../MessageEditor/MessageEditor";
 import Toast from "../Toast/Toast";
-import Button from "../buttons/Button";
-import ButtonLayout from "../buttons/ButtonLayout";
+import Button from "../Buttons/Button";
+import ButtonLayout from "../Buttons/ButtonLayout";
 import QuickAddModal from "../Modal/QuickAddModal";
 
 

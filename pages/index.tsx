@@ -1,8 +1,8 @@
 import Head from 'next/head'
 import Image from "next/image";
-import ButtonLayout from "../components/buttons/ButtonLayout";
-import Button from "../components/buttons/Button";
-import LargeInsetButton from "../components/buttons/LargeInsetButton";
+import ButtonLayout from "../components/Buttons/ButtonLayout";
+import Button from "../components/Buttons/Button";
+import LargeInsetButton from "../components/Buttons/LargeInsetButton";
 import Icon from '../components/Icon/Icon'
 
 export default function Home() {
