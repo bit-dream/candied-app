@@ -29,12 +29,12 @@ const TableRow:React.FC<Props> = ({key,rowData}) =>{
             console.log(currentString,el)
         }
     }
-
+    //<input id={key.toString()} onKeyUp={editTableEntry} className='border-none text-black dark:text-white text-center text-xs bg-slate-800' type="text" defaultValue={data}/>
     return <>
     <tr className={tableRow} key={key}>
         {rowData.map((data,key)=>{
             return <td key={key} className={tableItem}>
-                <input id={key.toString()} onKeyUp={editTableEntry} className='border-none text-black dark:text-white text-center text-xs bg-slate-800' type="text" defaultValue={data}/>
+                {data}
             </td>
         })}
     </tr>

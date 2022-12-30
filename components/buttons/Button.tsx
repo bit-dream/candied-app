@@ -11,7 +11,8 @@ interface Props {
     href?: string;
     fullWidth?: boolean;
     icon?: ReactNode;
-    noShadow?: boolean
+    noShadow?: boolean;
+    onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
 }
 const Button:React.FC<Props> = ({
     text,
@@ -21,7 +22,8 @@ const Button:React.FC<Props> = ({
     href,
     fullWidth,
     icon,
-    noShadow
+    noShadow,
+    onClick
 }) => {
 
     let btnColor: string; let brdColor: string; let hvrColor: string; let drkHoverColor: string;
@@ -72,6 +74,7 @@ const Button:React.FC<Props> = ({
         hvrColor,
         `rounded-md`,
         `pl-6 pr-6`,
+        'ml-1 mr-1',
         noShadow ? '' : `shadow-md`,
         noShadow ? '' : `hover:shadow-sm`,
         drkHoverColor,
@@ -80,7 +83,7 @@ const Button:React.FC<Props> = ({
     return <>
         {href ?
             <a className={classList}>{icon ? icon : <></>}{text}</a>
-            : <button className={classList}>{icon ? icon : <></>}{text}</button>}
+            : <button className={classList} onClick={onClick}>{icon ? icon : <></>}{text}</button>}
     </>
 }
 export default Button;

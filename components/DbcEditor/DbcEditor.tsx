@@ -104,7 +104,6 @@ const DbcEditor:React.FC<Props> = ({data}) => {
                 <Image src='/Data storage_Monochromatic.svg' fill alt='Background' className='-z-10 object-scale-down'/>
             </ContentDisplay>
         </div>
-        <QuickAddModal isOpen={true}/>
         <Toast message={toast.message} icon={toast.icon} isOpen={toast.isOpen}/>
     </>
 }

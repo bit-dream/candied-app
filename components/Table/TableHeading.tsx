@@ -9,8 +9,10 @@ interface Props {
 const classList = twMerge(
     //'border',
     //'dark:border-slate-600',
-    'bg-slate-600',
-    'text-white',
+    'dark:bg-slate-600',
+    'bg-gray-200',
+    'dark:text-white',
+    'text-black',
     'p-3',
     'sticky top-0',
 )

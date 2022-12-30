@@ -1,4 +1,5 @@
 import React, {ReactNode} from "react";
+import QuickAddModal from "./QuickAddModal";
 
 interface Props {
 }

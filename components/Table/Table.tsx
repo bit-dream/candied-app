@@ -12,18 +12,17 @@ interface Props {
     rows: Rows;
 }
 
+const generateTableRows = (r: Rows) => {
+    return r.map((row,k)=>{
+        return <TableRow rowData={row} key={k}/>
+    })
+}
+
 const Table:React.FC<Props> = ({headings,rows}) => {
 
     const tableHeadings = headings.map((heading,k)=>{
         return <TableHeading heading={heading} key={k}/>
     })
-
-
-    const generateTableRows = (rows: Rows) => {
-        return rows.map((row,k)=>{
-            return <TableRow rowData={row} key={k}/>
-        })
-    }
 
     const [filteredRows, UseFilteredRows] = useState<ReactNode>(generateTableRows(rows));
 
@@ -36,18 +35,9 @@ const Table:React.FC<Props> = ({headings,rows}) => {
         if (searchString.length === 0) {
             UseFilteredRows(generateTableRows(rows));
         } else {
-            UseFilteredRows(
-                generateTableRows(
-                rows.filter(row=>{
-                    for (const r of row) {
-                        if ((typeof(r) ==='string' || typeof(r) === 'number') &&
-                            r.toString().toLowerCase().includes(searchString.toLowerCase())) {
-                            return true;
-                        }
-                    }
-                })
-                )
-            )
+            let filtered = rows.filter(row =>
+                row.some(r => (typeof r === 'string' || typeof r === 'number') && r.toString().toLowerCase().includes(searchString.toLowerCase())))
+            UseFilteredRows(generateTableRows(filtered))
         }
     }
 
@@ -57,16 +47,13 @@ const Table:React.FC<Props> = ({headings,rows}) => {
         'overflow-y-scroll',
         'align-middle',
         'shadow-lg',
-        'shadow-black',
         'rounded-lg'
-        //'border',
-        //'dark:border-slate-600'
     )
 
     return(
     <>
         <div className={classList}>
-            <div className="p-4 bg-slate-600">
+            <div className="p-4 bg-gray-200 dark:bg-slate-600">
                 <label htmlFor="table-search" className="sr-only">Search</label>
                 <div className="relative mt-1">
                     <div className="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
@@ -78,9 +65,9 @@ const Table:React.FC<Props> = ({headings,rows}) => {
                         </svg>
                     </div>
                     <input type="text" id="table-search"
-                           className="block p-2 pl-10 w-80 text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                           className="block p-1 pl-10 w-80 text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                            placeholder="Search for items"
-                           onChange={_.debounce(search,1000)}
+                           onChange={_.debounce(search,500)}
                     />
                 </div>
             </div>
