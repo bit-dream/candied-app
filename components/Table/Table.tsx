@@ -47,13 +47,15 @@ const Table:React.FC<Props> = ({headings,rows}) => {
         'overflow-y-scroll',
         'align-middle',
         'shadow-lg',
-        'rounded-lg'
+        'rounded-lg',
+        'bg-gray-200',
+        'dark:bg-slate-600'
     )
 
     return(
     <>
         <div className={classList}>
-            <div className="p-4 bg-gray-200 dark:bg-slate-600">
+            <div className="p-4">
                 <label htmlFor="table-search" className="sr-only">Search</label>
                 <div className="relative mt-1">
                     <div className="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">

@@ -1,38 +1,40 @@
-import React, {ReactNode} from "react";
+import React, {ReactNode, useEffect, useState} from "react";
+import ComboBox from "../ComboBox/ComboBox";
+import Input from "../Input/Input";
+import ComboBoxItem from "../ComboBox/ComboBoxItem";
 
 interface Props {
+    UseStartBit:  React.Dispatch<React.SetStateAction<number>>;
+    UseSignalLength:  React.Dispatch<React.SetStateAction<number>>;
+    UseSignalName:  React.Dispatch<React.SetStateAction<string>>;
+    UseSelectedMessage:  React.Dispatch<React.SetStateAction<string>>;
 }
 
-const SignalBody:React.FC<Props> = () => {
+const SignalBody:React.FC<Props> = ({UseStartBit,UseSignalLength,UseSignalName,UseSelectedMessage}) => {
+
+    const messageSelected = (selection: string) => {
+        UseSelectedMessage(selection);
+    }
+
+    const nameChange = (value: string) => {
+        UseSignalName(value);
+    }
+    const startBitChange = (value: string) => {
+        UseStartBit(parseInt(value));
+    }
+    const lengthChange = (value: string) => {
+        UseSignalLength(parseInt(value));
+    }
+
     return <>
-        <div className="mb-6">
-            <label htmlFor="base-input" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
-                Attached to Message
-            </label>
-            <input type="text" id="base-input"
-                   className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"/>
-        </div>
-        <div className="mb-6">
-            <label htmlFor="base-input" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
-                Signal Name
-            </label>
-            <input type="text" id="base-input"
-                   className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"/>
-        </div>
-        <div className="mb-6">
-            <label htmlFor="base-input" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
-                Start Bit
-            </label>
-            <input type="text" id="base-input"
-                   className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"/>
-        </div>
-        <div className="mb-6">
-            <label htmlFor="base-input" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
-                Length
-            </label>
-            <input type="text" id="base-input"
-                   className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"/>
-        </div>
+        <ComboBox
+            items={['Message1','Message2']}
+            selectedItem={'Message1'}
+            onSelection={messageSelected}
+        />
+        <Input id={'signal_name_field'} label={'Signal Name'} onChange={nameChange}/>
+        <Input id={'signal_start_bit_field'} label={'Start Bit'} onChange={startBitChange}/>
+        <Input id={'signal_length_field'} label={'Length'} onChange={lengthChange}/>
     </>
 }
 export default SignalBody;

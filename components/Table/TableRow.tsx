@@ -18,7 +18,9 @@ const TableRow:React.FC<Props> = ({key,rowData}) =>{
     )
     const tableRow = twMerge(
         'hover:bg-amber-200',
-        'cursor-pointer'
+        'cursor-pointer',
+        'bg-white',
+        'dark:bg-slate-700'
     )
 
     const editTableEntry = (event: any) => {
