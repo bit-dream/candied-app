@@ -40,14 +40,15 @@ class Simulation {
 
     constructor(
         selector: string, 
-        graph: Graph, 
+        graph: Graph,
+        document: any,
         callback: SimulationCallback=(event: any, data: any)=>{}, 
-        hoverCallback: SimulationCallback=(event: any, data: any)=>{}
+        hoverCallback: SimulationCallback=(event: any, data: any)=>{},
         ) {
         this.selector = '#' + selector;
         this.graph = graph;
-        this.width = 1000;
-        this.height = 700;
+        this.width = document.innerWidth;
+        this.height = document.innerHeight;
         this.onClickCallback = callback;
         this.onHoverCallback = hoverCallback;
     };
@@ -229,6 +230,7 @@ class Simulation {
     documentResizeHandler(document: any) {
         addEventListener("resize", _.debounce(
             () => {
+                console.log(document.innerWidth,document.innerHeight)
                 this.forceSimulation.stop();
                 d3.select(this.selector).html("");
                 this.setWidth = document.innerWidth;

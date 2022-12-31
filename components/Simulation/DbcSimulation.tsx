@@ -22,7 +22,8 @@ const DbcSimulation:React.FC<Props> = ({pageSelector}) => {
                 '/mail-svgrepo-com.svg',
                 '/letter-s-svgrepo-com.svg'
             );
-            let simulation = new Simulation('SIMULATION',graph)
+            let simulation = new Simulation('SIMULATION',graph, window)
+            simulation.documentResizeHandler(window)
             simulation.init();
         }
     },[data, pageSelector])
