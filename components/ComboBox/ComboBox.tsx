@@ -40,7 +40,7 @@ const ComboBox:React.FC<Props> = ({items,selectedItem, onSelection}) => {
                     {
                         items.map((item,k)=>{
                             return <>
-                                <ComboBoxItem key={k} name={item} selected={item===selectedItem} onSelection={liSelected}/>
+                                <ComboBoxItem key={k.toString()} name={item} selected={item===selectedItem} onSelection={liSelected}/>
                             </>
                         })
                     }
