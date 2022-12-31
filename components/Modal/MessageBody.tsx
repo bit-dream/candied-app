@@ -22,8 +22,8 @@ const MessageBody:React.FC<Props> = ({UseMessageName,UseMessageDlc,UseMessageId}
 
     return <>
         <Input id={'message_name_field'} label={'Message Name'} onChange={nameChange}/>
-        <Input id={'message_id_field'} label={'Message ID'} onChange={idChange}/>
-        <Input id={'message_dlc_field'} label={'Message DLC'} onChange={lengthChange}/>
+        <Input id={'message_id_field'} label={'Message ID'} onChange={idChange} defaultVal={0}/>
+        <Input id={'message_dlc_field'} label={'Message DLC'} onChange={lengthChange} defaultVal={8}/>
     </>
 }
 export default MessageBody;

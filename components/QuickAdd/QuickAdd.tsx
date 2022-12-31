@@ -1,4 +1,4 @@
-import React, {useContext, useState} from "react";
+import React, {cloneElement, ReactNode, useContext, useState} from "react";
 import Button from "../Buttons/Button";
 import Modal from "../Modal/Modal";
 import Tabs from '../Tabs/Tabs'
@@ -8,10 +8,15 @@ import SignalBody from "../Modal/SignalBody";
 import Dbc from "dbc-can";
 import {DbcContext} from "../DbcEditor/DbcEditor";
 import Icon from "../Icon/Icon";
+import Simulation from "../Simulation/simulation";
 
-interface Props {
+interface ElementProps {
+    onClick: () => void;
 }
-const QuickAdd:React.FC<Props> = ({}) => {
+interface Props {
+    btn?: React.ReactElement<ElementProps>;
+}
+const QuickAdd:React.FC<Props> = ({btn}) => {
     const dbc = new Dbc();
 
     const [modalOpen,UseModalOpen] = useState<boolean>(false);
@@ -34,14 +39,22 @@ const QuickAdd:React.FC<Props> = ({}) => {
             UseTabSelected(button.id);
         }
     }
+    let CustomButton: ReactNode;
+    if (React.isValidElement(btn)) {
+        CustomButton = cloneElement(btn);
+    }
 
     return <>
-    <Button
-        text=''
-        color='secondary'
-        icon={<Icon type='add'/>}
-        fullWidth
-        onClick={()=>{UseModalOpen(true)}}/>
+        {btn && React.isValidElement(btn) ?
+            cloneElement(btn, {onClick:()=>{UseModalOpen(true);}}):
+            <Button
+                text=''
+                color='secondary'
+                icon={<Icon type='add'/>}
+                fullWidth
+                onClick={()=>{UseModalOpen(true)}}
+            />
+        }
     <Modal
         isOpen={modalOpen}
         heading='Quick Add'
@@ -102,7 +115,9 @@ const QuickAdd:React.FC<Props> = ({}) => {
                         }
                         SetData(data);
                     }}/>
-                    <Button text='Close' color='danger' noShadow onClick={()=>UseModalOpen(false)}/>
+                    <Button text='Close' color='danger' noShadow onClick={()=>{
+                        UseModalOpen(false);
+                    }}/>
                 </div>
             </>
         }

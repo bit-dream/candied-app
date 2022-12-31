@@ -10,9 +10,10 @@ interface Props {
     UseSignalLength:  React.Dispatch<React.SetStateAction<number>>;
     UseSignalName:  React.Dispatch<React.SetStateAction<string>>;
     UseSelectedMessage:  React.Dispatch<React.SetStateAction<string>>;
+    resetFields?: boolean;
 }
 
-const SignalBody:React.FC<Props> = ({UseStartBit,UseSignalLength,UseSignalName,UseSelectedMessage}) => {
+const SignalBody:React.FC<Props> = ({UseStartBit,UseSignalLength,UseSignalName,UseSelectedMessage,resetFields}) => {
 
     const {data, SetData} = useContext(DbcContext);
     const messageSelected = (selection: string) => {
@@ -38,8 +39,8 @@ const SignalBody:React.FC<Props> = ({UseStartBit,UseSignalLength,UseSignalName,U
             onSelection={messageSelected}
         />
         <Input id={'signal_name_field'} label={'Signal Name'} onChange={nameChange}/>
-        <Input id={'signal_start_bit_field'} label={'Start Bit'} onChange={startBitChange}/>
-        <Input id={'signal_length_field'} label={'Length'} onChange={lengthChange}/>
+        <Input id={'signal_start_bit_field'} label={'Start Bit'} onChange={startBitChange} defaultVal={0}/>
+        <Input id={'signal_length_field'} label={'Length'} onChange={lengthChange} defaultVal={8}/>
     </>
 }
 export default SignalBody;

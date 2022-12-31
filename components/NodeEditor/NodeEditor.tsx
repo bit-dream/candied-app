@@ -13,13 +13,14 @@ interface Props {
     pageSelector: PageSelection;
 }
 const NodeEditor:React.FC<Props> = ({pageSelector}) => {
-
     const {data, SetData} = useContext(DbcContext);
     const [modalOpen,UseModelOpen] = useState<boolean>(false);
 
     return <>
         <ContentDisplay isDisplayed={pageSelector === 'Nodes'}>
             {data && data.nodes.size ?
+                <>
+                <h1 className='text-3xl pb-3 text-black dark:text-white'>Nodes</h1>
                 <Table
                     headings={['Name','Description']}
                     rows={
@@ -28,6 +29,7 @@ const NodeEditor:React.FC<Props> = ({pageSelector}) => {
                         })
                     }
                 />
+                </>
                     : <div className='text-5xl text-center'>No Data</div>
             }
             <div className='mt-5'/>
