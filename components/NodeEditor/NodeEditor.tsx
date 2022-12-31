@@ -1,20 +1,21 @@
 import ContentDisplay from "../ContentDisplayContainer/ContentDisplay";
 import Table from "../Table/Table";
 import {DbcData, Node} from "dbc-can/lib/dbc/Dbc";
-import React, {useState} from "react";
+import React, {useContext, useState} from "react";
 import TableRow from "../Table/TableRow";
 import ButtonLayout from "../Buttons/ButtonLayout";
 import Button from "../Buttons/Button";
 import {PageSelection} from "../DbcEditor/DbcEditor";
 import Icon from "../Icon/Icon";
 import QuickAddModal from "../Modal/QuickAddModal";
+import {DbcContext} from "../../pages/editor";
 
 interface Props {
-    data: DbcData|undefined;
     pageSelector: PageSelection;
 }
-const NodeEditor:React.FC<Props> = ({data, pageSelector}) => {
+const NodeEditor:React.FC<Props> = ({pageSelector}) => {
 
+    const {data, SetData} = useContext(DbcContext);
     const [modalOpen,UseModelOpen] = useState<boolean>(false);
 
     return <>

@@ -1,11 +1,9 @@
-import {NextPage} from "next";
 import NavBar from '../NavBar/NavBar';
 import NavItem from "../NavBar/NavItem";
 import Icon from "../Icon/Icon";
 import Image from "next/image";
-import React, {ReactNode, useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import ContentDisplay from "../ContentDisplayContainer/ContentDisplay";
-import Modal from "../Modal/Modal";
 import Dbc from 'dbc-can';
 import {DbcData} from "dbc-can/lib/dbc/Dbc";
 import NodeEditor from "../NodeEditor/NodeEditor";
@@ -14,10 +12,6 @@ import FileLoader from "../FileLoader/FileLoader";
 import SignalEditor from "../SignalEditor/SignalEditor";
 import MessageEditor from "../MessageEditor/MessageEditor";
 import Toast from "../Toast/Toast";
-import Button from "../Buttons/Button";
-import ButtonLayout from "../Buttons/ButtonLayout";
-import QuickAddModal from "../Modal/QuickAddModal";
-
 
 export type PageSelection = 'Nodes' | 'Messages' | 'Signals' | 'Settings' | 'Upload' | 'Visual' | undefined
 
@@ -93,7 +87,7 @@ const DbcEditor:React.FC<Props> = ({data}) => {
                 <NavItem buttonTitle='Upload' icon={<Icon type='upload_file'/>} onClick={()=>navBtnClicked('Upload')}/>
                 <NavItem buttonTitle='Settings' icon={<Icon type='settings'/>} onClick={()=>navBtnClicked('Settings')}/>
             </NavBar>
-            <NodeEditor data={dbcData} pageSelector={selection}/>
+            <NodeEditor pageSelector={selection}/>
             <SignalEditor data={dbcData} pageSelector={selection}/>
             <MessageEditor data={dbcData} pageSelector={selection}/>
             <DbcSimulation data={dbcData} pageSelector={selection}/>

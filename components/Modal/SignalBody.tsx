@@ -1,7 +1,9 @@
-import React, {ReactNode, useEffect, useState} from "react";
+import React, {ReactNode, useContext, useEffect, useState} from "react";
 import ComboBox from "../ComboBox/ComboBox";
 import Input from "../Input/Input";
 import ComboBoxItem from "../ComboBox/ComboBoxItem";
+import Dbc from "dbc-can";
+import {DbcContext} from "../../pages/editor";
 
 interface Props {
     UseStartBit:  React.Dispatch<React.SetStateAction<number>>;
@@ -12,6 +14,7 @@ interface Props {
 
 const SignalBody:React.FC<Props> = ({UseStartBit,UseSignalLength,UseSignalName,UseSelectedMessage}) => {
 
+    const {data, SetData} = useContext(DbcContext);
     const messageSelected = (selection: string) => {
         UseSelectedMessage(selection);
     }
@@ -26,10 +29,12 @@ const SignalBody:React.FC<Props> = ({UseStartBit,UseSignalLength,UseSignalName,U
         UseSignalLength(parseInt(value));
     }
 
+    const messages = Array.from(data.messages.keys());
+
     return <>
         <ComboBox
-            items={['Message1','Message2']}
-            selectedItem={'Message1'}
+            items={messages}
+            selectedItem={messages[0]}
             onSelection={messageSelected}
         />
         <Input id={'signal_name_field'} label={'Signal Name'} onChange={nameChange}/>

@@ -1,15 +1,17 @@
 import ContentDisplay from "../ContentDisplayContainer/ContentDisplay";
 import {DbcData, Node} from "dbc-can/lib/dbc/Dbc";
-import {PageSelection} from "../../pages/editor";
-import React, {useEffect} from "react";
+import {PageSelection} from "../DbcEditor/DbcEditor";
+import {DbcContext} from "../../pages/editor";
+import React, {useContext, useEffect} from "react";
 import createGraph from "./transforms";
 import Simulation from "./simulation";
 
 interface Props {
-    data: DbcData|undefined;
     pageSelector: PageSelection;
 }
-const DbcSimulation:React.FC<Props> = ({data, pageSelector}) => {
+const DbcSimulation:React.FC<Props> = ({pageSelector}) => {
+    const {data} = useContext(DbcContext);
+
     useEffect(()=>{
         let isDarkMode = window.matchMedia("(prefers-color-scheme: dark)").matches;
         console.log(isDarkMode)

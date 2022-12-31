@@ -1,19 +1,21 @@
-import React, {useState} from "react";
+import React, {useContext, useState} from "react";
 import Button from "../Buttons/Button";
 import Modal from "./Modal";
 import Tabs from '../Tabs/Tabs'
 import MessageBody from "./MessageBody";
 import NodeBody from "./NodeBody";
 import SignalBody from "./SignalBody";
+import {DbcContext} from "../../pages/editor";
+import Dbc from "dbc-can";
 
 interface Props {
     UseOpen:  React.Dispatch<React.SetStateAction<boolean>>;
     isOpen: boolean;
 }
 const QuickAddModal:React.FC<Props> = ({isOpen,UseOpen}) => {
+    const dbc = new Dbc();
 
     const [tabSelected,UseTabSelected] = useState<string>('Node');
-
     const [startBit,UseStartBit] = useState<number>(0);
     const [signalLength,UseSignalLength] = useState<number>(0);
     const [signalName,UseSignalName] = useState<string>('');
@@ -23,14 +25,15 @@ const QuickAddModal:React.FC<Props> = ({isOpen,UseOpen}) => {
     const [messageDlc,UseMessageDlc] = useState<number>(8);
     const [messageId,UseMessageId] = useState<number>(0);
 
+    const {data, SetData} = useContext(DbcContext);
+    console.log(data);
+
     const tabClicked = (event: React.MouseEvent<HTMLButtonElement>) => {
         let button = event.target as HTMLButtonElement;
         if (button && button.id) {
             UseTabSelected(button.id);
         }
     }
-
-    console.log(startBit,signalLength,signalName,selectedMessage,messageName,messageId)
 
     return(
     <Modal
@@ -66,7 +69,24 @@ const QuickAddModal:React.FC<Props> = ({isOpen,UseOpen}) => {
         footer={
             <>
                 <div>
-                    <Button text='Add' color='info' noShadow/>
+                    <Button text='Add' color='info' noShadow onClick={()=>{
+                        switch(tabSelected) {
+                            case 'Node':
+                                data.nodes.set(nodeName,{
+                                   name:nodeName,
+                                   description: null,
+                                   attributes: new Map()
+                                })
+                                break;
+                            case 'Message':
+                                const msg = dbc.createMessage(messageName,messageId,messageDlc);
+                                data.messages.set(messageName,msg);
+                                break;
+                            case 'Signal':
+                                break;
+                        }
+                        SetData(data);
+                    }}/>
                     <Button text='Close' color='danger' noShadow onClick={()=>UseOpen(false)}/>
                 </div>
             </>

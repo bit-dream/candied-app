@@ -1,18 +1,18 @@
 import ContentDisplay from "../ContentDisplayContainer/ContentDisplay";
 import Table from "../Table/Table";
-import {DbcData, Message, Signal} from "dbc-can/lib/dbc/Dbc";
-import React from "react";
-import TableRow from "../Table/TableRow";
+import {Message} from "dbc-can/lib/dbc/Dbc";
+import React, {useContext} from "react";
 import Button from "../Buttons/Button";
 import Icon from "../Icon/Icon";
 import {PageSelection} from "../DbcEditor/DbcEditor";
+import {DbcContext} from "../../pages/editor";
 
 interface Props {
-    data: DbcData|undefined;
     pageSelector: PageSelection;
 }
-const SignalEditor:React.FC<Props> = ({data, pageSelector}) => {
+const SignalEditor:React.FC<Props> = ({pageSelector}) => {
 
+    const {data, SetData} = useContext(DbcContext);
     const createSignalRows = (messages: Map<string,Message>) =>{
         const msgArr = Array.from(messages.values());
         let signals = [];
