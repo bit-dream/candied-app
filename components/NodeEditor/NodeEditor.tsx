@@ -5,10 +5,9 @@ import React, {useContext, useState} from "react";
 import TableRow from "../Table/TableRow";
 import ButtonLayout from "../Buttons/ButtonLayout";
 import Button from "../Buttons/Button";
-import {PageSelection} from "../DbcEditor/DbcEditor";
+import {DbcContext, PageSelection} from "../DbcEditor/DbcEditor";
 import Icon from "../Icon/Icon";
 import QuickAddModal from "../Modal/QuickAddModal";
-import {DbcContext} from "../../pages/editor";
 
 interface Props {
     pageSelector: PageSelection;

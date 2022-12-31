@@ -4,8 +4,7 @@ import {Message} from "dbc-can/lib/dbc/Dbc";
 import React, {useContext} from "react";
 import Button from "../Buttons/Button";
 import Icon from "../Icon/Icon";
-import {PageSelection} from "../DbcEditor/DbcEditor";
-import {DbcContext} from "../../pages/editor";
+import {DbcContext, PageSelection} from "../DbcEditor/DbcEditor";
 
 interface Props {
     pageSelector: PageSelection;

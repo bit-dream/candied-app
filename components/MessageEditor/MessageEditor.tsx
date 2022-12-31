@@ -5,11 +5,9 @@ import React, {useContext} from "react";
 import TableRow from "../Table/TableRow";
 import Button from "../Buttons/Button";
 import Icon from "../Icon/Icon";
-import {PageSelection} from "../DbcEditor/DbcEditor";
-import {DbcContext} from "../../pages/editor";
+import {DbcContext, PageSelection} from "../DbcEditor/DbcEditor";
 
 interface Props {
-    data: DbcData|undefined;
     pageSelector: PageSelection;
 }
 const MessageEditor:React.FC<Props> = ({pageSelector}) => {

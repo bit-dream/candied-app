@@ -2,7 +2,7 @@ import NavBar from '../NavBar/NavBar';
 import NavItem from "../NavBar/NavItem";
 import Icon from "../Icon/Icon";
 import Image from "next/image";
-import React, {useEffect, useState} from "react";
+import React, {createContext, SetStateAction, useContext, useState} from "react";
 import ContentDisplay from "../ContentDisplayContainer/ContentDisplay";
 import Dbc from 'dbc-can';
 import {DbcData} from "dbc-can/lib/dbc/Dbc";
@@ -16,26 +16,35 @@ import Toast from "../Toast/Toast";
 export type PageSelection = 'Nodes' | 'Messages' | 'Signals' | 'Settings' | 'Upload' | 'Visual' | undefined
 
 interface Props {
-    data?: DbcData;
+    startingData?: DbcData;
 }
 
-const DbcEditor:React.FC<Props> = ({data}) => {
+type ContextProps = {
+    data: DbcData;
+    SetData: React.Dispatch<SetStateAction<DbcData>>;
+}
+export const dbc = new Dbc();
+const dbcInit: ContextProps = {
+    data: dbc.initDbcDataObj(),
+    SetData: () => {
+    }
+}
+export const DbcContext = createContext(dbcInit);
+
+const DbcEditor:React.FC<Props> = ({startingData}) => {
+
+    const dbc = new Dbc();
+    const initDataSet = startingData ? startingData : dbc.initDbcDataObj();
+    const [data,SetData] = useState<DbcData>(initDataSet);
+    const init = {data, SetData};
+
     const [selection,UseSelection] = useState<PageSelection>(undefined);
     const [open, UseOpen] = useState<boolean>(false);
-    const [dbcData, UseDbcData] = useState<DbcData|undefined>(undefined);
     const [toast, UseToast] = useState({
         isOpen: false,
         message: 'Toast',
         icon: 'task_alt'
     })
-    const dbc = new Dbc();
-
-    // Used so that we can pre-load data from a previous session
-    useEffect(()=>{
-        if (data) {
-            UseDbcData(data);
-        }
-    },[])
 
     const navBtnClicked = (type: PageSelection) => {
         if (selection === type) {
@@ -45,23 +54,8 @@ const DbcEditor:React.FC<Props> = ({data}) => {
         }
     }
 
-    useEffect(()=>{
-        if (selection === 'Settings') {
-            UseOpen(true);
-        }
-        if (selection === 'Nodes') {
-            if (dbcData) {
-                dbcData.messages.set(
-                    'ASDF',
-                    dbc.createMessage('ASDF',10000,3)
-                )
-            }
-            UseDbcData(dbcData)
-        }
-    },[selection])
-
     const fileUpload = (fileContent: string) => {
-        UseDbcData(dbc.load(fileContent));
+        SetData(dbc.load(fileContent));
         UseToast({
             isOpen: true,
             message: 'File successfully uploaded',
@@ -77,6 +71,7 @@ const DbcEditor:React.FC<Props> = ({data}) => {
     }
 
     return <>
+        <DbcContext.Provider value={init}>
         <div className='flex flex-row'>
             <NavBar>
                 <NavItem buttonTitle='CANDIED' logoImage='/candy-cane.svg' logoClass='rotate-45' isLogo/>
@@ -88,17 +83,17 @@ const DbcEditor:React.FC<Props> = ({data}) => {
                 <NavItem buttonTitle='Settings' icon={<Icon type='settings'/>} onClick={()=>navBtnClicked('Settings')}/>
             </NavBar>
             <NodeEditor pageSelector={selection}/>
-            <SignalEditor data={dbcData} pageSelector={selection}/>
-            <MessageEditor data={dbcData} pageSelector={selection}/>
-            <DbcSimulation data={dbcData} pageSelector={selection}/>
-            <FileLoader data={dbcData}
-                        pageSelector={selection}
+            <SignalEditor pageSelector={selection}/>
+            <MessageEditor pageSelector={selection}/>
+            <DbcSimulation pageSelector={selection}/>
+            <FileLoader pageSelector={selection}
                         onFileLoad={fileUpload}/>
             <ContentDisplay isDisplayed={selection===undefined}>
                 <Image src='/Data storage_Monochromatic.svg' fill alt='Background' className='-z-10 object-scale-down'/>
             </ContentDisplay>
         </div>
         <Toast message={toast.message} icon={toast.icon} isOpen={toast.isOpen}/>
+        </DbcContext.Provider>
     </>
 }
 export default DbcEditor;

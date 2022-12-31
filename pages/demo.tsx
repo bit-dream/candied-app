@@ -1,6 +1,19 @@
 import {NextPage} from "next";
 import DbcEditor from "../components/DbcEditor/DbcEditor";
 import Dbc from "dbc-can";
+import {DbcData} from "dbc-can/lib/dbc/Dbc";
+import React, {createContext, SetStateAction, useState} from "react";
+
+type ContextProps = {
+    data: DbcData;
+    SetData:  React.Dispatch<SetStateAction<DbcData>>;
+}
+const dbc = new Dbc();
+const dbcInit: ContextProps = {
+    data: dbc.initDbcDataObj(),
+    SetData: () => {}
+}
+export const DbcContext = createContext(dbcInit);
 
 const Demo: NextPage = () => {
 
@@ -61,7 +74,7 @@ BO_TX_BU_ 4321 : Node0,Node2;
     `)
 
     return <>
-        <DbcEditor data={dbc.data}/>
+        <DbcEditor startingData={dbc.data}/>
     </>
 }
 export default Demo;

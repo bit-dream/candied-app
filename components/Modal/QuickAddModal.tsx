@@ -5,8 +5,8 @@ import Tabs from '../Tabs/Tabs'
 import MessageBody from "./MessageBody";
 import NodeBody from "./NodeBody";
 import SignalBody from "./SignalBody";
-import {DbcContext} from "../../pages/editor";
 import Dbc from "dbc-can";
+import {DbcContext} from "../DbcEditor/DbcEditor";
 
 interface Props {
     UseOpen:  React.Dispatch<React.SetStateAction<boolean>>;
@@ -26,7 +26,6 @@ const QuickAddModal:React.FC<Props> = ({isOpen,UseOpen}) => {
     const [messageId,UseMessageId] = useState<number>(0);
 
     const {data, SetData} = useContext(DbcContext);
-    console.log(data);
 
     const tabClicked = (event: React.MouseEvent<HTMLButtonElement>) => {
         let button = event.target as HTMLButtonElement;

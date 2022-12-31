@@ -1,7 +1,6 @@
 import ContentDisplay from "../ContentDisplayContainer/ContentDisplay";
 import {DbcData, Node} from "dbc-can/lib/dbc/Dbc";
-import {PageSelection} from "../DbcEditor/DbcEditor";
-import {DbcContext} from "../../pages/editor";
+import {DbcContext, PageSelection} from "../DbcEditor/DbcEditor";
 import React, {useContext, useEffect} from "react";
 import createGraph from "./transforms";
 import Simulation from "./simulation";

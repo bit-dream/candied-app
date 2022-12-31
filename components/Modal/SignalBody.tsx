@@ -3,7 +3,7 @@ import ComboBox from "../ComboBox/ComboBox";
 import Input from "../Input/Input";
 import ComboBoxItem from "../ComboBox/ComboBoxItem";
 import Dbc from "dbc-can";
-import {DbcContext} from "../../pages/editor";
+import {DbcContext} from "../DbcEditor/DbcEditor";
 
 interface Props {
     UseStartBit:  React.Dispatch<React.SetStateAction<number>>;
