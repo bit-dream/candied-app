@@ -1,19 +1,20 @@
 import React, {useContext, useState} from "react";
 import Button from "../Buttons/Button";
-import Modal from "./Modal";
+import Modal from "../Modal/Modal";
 import Tabs from '../Tabs/Tabs'
-import MessageBody from "./MessageBody";
-import NodeBody from "./NodeBody";
-import SignalBody from "./SignalBody";
+import MessageBody from "../Modal/MessageBody";
+import NodeBody from "../Modal/NodeBody";
+import SignalBody from "../Modal/SignalBody";
 import Dbc from "dbc-can";
 import {DbcContext} from "../DbcEditor/DbcEditor";
+import Icon from "../Icon/Icon";
 
 interface Props {
-    UseOpen:  React.Dispatch<React.SetStateAction<boolean>>;
-    isOpen: boolean;
 }
-const QuickAddModal:React.FC<Props> = ({isOpen,UseOpen}) => {
+const QuickAdd:React.FC<Props> = ({}) => {
     const dbc = new Dbc();
+
+    const [modalOpen,UseModalOpen] = useState<boolean>(false);
 
     const [tabSelected,UseTabSelected] = useState<string>('Node');
     const [startBit,UseStartBit] = useState<number>(0);
@@ -34,9 +35,15 @@ const QuickAddModal:React.FC<Props> = ({isOpen,UseOpen}) => {
         }
     }
 
-    return(
+    return <>
+    <Button
+        text=''
+        color='secondary'
+        icon={<Icon type='add'/>}
+        fullWidth
+        onClick={()=>{UseModalOpen(true)}}/>
     <Modal
-        isOpen={isOpen}
+        isOpen={modalOpen}
         heading='Quick Add'
         body={
             <>
@@ -82,15 +89,24 @@ const QuickAddModal:React.FC<Props> = ({isOpen,UseOpen}) => {
                                 data.messages.set(messageName,msg);
                                 break;
                             case 'Signal':
+                                const sigMsg = data.messages.get(selectedMessage);
+                                const sig = dbc.createSignal(
+                                    signalName,
+                                    startBit,
+                                    signalLength
+                                );
+                                if (sigMsg) {
+                                    sigMsg.signals.set(signalName,sig)
+                                }
                                 break;
                         }
                         SetData(data);
                     }}/>
-                    <Button text='Close' color='danger' noShadow onClick={()=>UseOpen(false)}/>
+                    <Button text='Close' color='danger' noShadow onClick={()=>UseModalOpen(false)}/>
                 </div>
             </>
         }
     />
-    )
+    </>
 }
-export default QuickAddModal;
+export default QuickAdd;

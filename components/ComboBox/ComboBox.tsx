@@ -19,7 +19,7 @@ const ComboBox:React.FC<Props> = ({items,selectedItem, onSelection}) => {
 
     useEffect(()=>{
         onSelection(currentSelection);
-    },[currentSelection])
+    },[currentSelection, onSelection])
 
     return <>
         <div className='mb-6'>

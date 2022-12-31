@@ -7,7 +7,7 @@ import ButtonLayout from "../Buttons/ButtonLayout";
 import Button from "../Buttons/Button";
 import {DbcContext, PageSelection} from "../DbcEditor/DbcEditor";
 import Icon from "../Icon/Icon";
-import QuickAddModal from "../Modal/QuickAddModal";
+import QuickAdd from "../QuickAdd/QuickAdd";
 
 interface Props {
     pageSelector: PageSelection;
@@ -31,14 +31,8 @@ const NodeEditor:React.FC<Props> = ({pageSelector}) => {
                     : <div className='text-5xl text-center'>No Data</div>
             }
             <div className='mt-5'/>
-            <Button
-                text=''
-                color='secondary'
-                icon={<Icon type='add'/>}
-                fullWidth
-                onClick={()=>{UseModelOpen(true)}}/>
+            <QuickAdd/>
         </ContentDisplay>
-        <QuickAddModal UseOpen={UseModelOpen} isOpen={modalOpen}/>
         </>
 }
 export default NodeEditor;

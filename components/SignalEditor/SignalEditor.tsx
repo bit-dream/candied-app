@@ -5,6 +5,7 @@ import React, {useContext} from "react";
 import Button from "../Buttons/Button";
 import Icon from "../Icon/Icon";
 import {DbcContext, PageSelection} from "../DbcEditor/DbcEditor";
+import QuickAdd from "../QuickAdd/QuickAdd";
 
 interface Props {
     pageSelector: PageSelection;
@@ -45,7 +46,7 @@ const SignalEditor:React.FC<Props> = ({pageSelector}) => {
                 : <div className='text-5xl text-center'>No Data</div>
             }
             <div className='mt-5'/>
-            <Button text='' color='info' icon={<Icon type='add'/>} fullWidth/>
+            <QuickAdd/>
         </ContentDisplay>
     );
 }

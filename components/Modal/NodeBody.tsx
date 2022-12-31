@@ -1,5 +1,5 @@
 import React, {ReactNode} from "react";
-import QuickAddModal from "./QuickAddModal";
+import QuickAdd from "../QuickAdd/QuickAdd";
 import Input from "../Input/Input";
 
 interface Props {
