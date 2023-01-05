@@ -1,4 +1,4 @@
-import type { DbcData, Message, Signal, Node } from "dbc-can/lib/dbc/Dbc";
+import type { DbcData, Message, Signal, Node } from "candied/dist/dbc/Dbc";
 import type { Graph, GraphLinkProps, GraphNodeProps } from './types';
 
 const createGraph = (

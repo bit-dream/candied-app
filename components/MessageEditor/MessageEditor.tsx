@@ -1,6 +1,6 @@
 import ContentDisplay from "../ContentDisplayContainer/ContentDisplay";
 import Table from "../Table/Table";
-import {DbcData, Message, Signal} from "dbc-can/lib/dbc/Dbc";
+import {DbcData, Message, Signal} from "candied/dist/dbc/Dbc";
 import React, {useContext} from "react";
 import TableRow from "../Table/TableRow";
 import Button from "../Buttons/Button";

@@ -1,4 +1,4 @@
-import type { Attributes, Message, Signal, Node } from "dbc-can/lib/dbc/Dbc";
+import type { Attributes, Message, Signal, Node } from "candied/dist/dbc/Dbc";
 
 export type Graph = {
     nodes: GraphNodeProps[];

@@ -1,6 +1,5 @@
-import React, {ReactNode} from "react";
+import React from "react";
 import Input from "../Input/Input";
-import ComboBox from "../ComboBox/ComboBox";
 
 interface Props {
     UseMessageName: React.Dispatch<React.SetStateAction<string>>;

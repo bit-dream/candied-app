@@ -1,4 +1,4 @@
-import {DbcData, Node} from "dbc-can/lib/dbc/Dbc";
+import {DbcData, Node} from "candied/dist/dbc/Dbc";
 import {ChangeEventHandler, ReactNode, useEffect, useState} from "react";
 import TableHeading from "./TableHeading";
 import TableRow from "./TableRow";

@@ -1,8 +1,6 @@
 import React, {ReactNode, useContext, useEffect, useState} from "react";
 import ComboBox from "../ComboBox/ComboBox";
 import Input from "../Input/Input";
-import ComboBoxItem from "../ComboBox/ComboBoxItem";
-import Dbc from "dbc-can";
 import {DbcContext} from "../DbcEditor/DbcEditor";
 
 interface Props {
