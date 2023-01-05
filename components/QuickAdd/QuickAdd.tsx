@@ -5,10 +5,11 @@ import Tabs from '../Tabs/Tabs'
 import MessageBody from "../Modal/MessageBody";
 import NodeBody from "../Modal/NodeBody";
 import SignalBody from "../Modal/SignalBody";
-import Dbc from "dbc-can";
+import {Dbc} from "candied";
 import {DbcContext} from "../DbcEditor/DbcEditor";
 import Icon from "../Icon/Icon";
 import Simulation from "../Simulation/simulation";
+
 
 interface ElementProps {
     onClick: () => void;

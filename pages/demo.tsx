@@ -1,7 +1,7 @@
 import {NextPage} from "next";
 import DbcEditor from "../components/DbcEditor/DbcEditor";
-import Dbc from "dbc-can";
-import {DbcData} from "dbc-can/lib/dbc/Dbc";
+import {Dbc} from "candied";
+import {DbcData} from "candied/lib/dbc/Dbc";
 import React, {createContext, SetStateAction, useState} from "react";
 
 type ContextProps = {
@@ -18,6 +18,7 @@ export const DbcContext = createContext(dbcInit);
 const Demo: NextPage = () => {
 
     const dbc = new Dbc();
+
     dbc.load(`
 VERSION "1.0"
 
