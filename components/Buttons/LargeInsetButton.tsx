@@ -28,7 +28,7 @@ const LargeInsetButton = (props: {text: string, heading: string, href: string}) 
                     </div>
                     <div className='text-xs basis-1/2 dark:text-white lg:block md:block hidden'>{props.text}</div>
                 </div>
-                <div className='self-center dark:text-white'><Icon type='arrow_forward'/></div>
+                <div className='self-center dark:text-white ml-3'><Icon type='arrow_forward'/></div>
             </div>
         </a>
     </>

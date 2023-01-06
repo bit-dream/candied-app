@@ -33,7 +33,7 @@ const NodeEditor:React.FC<Props> = ({pageSelector}) => {
                     : <div className='text-5xl text-center'>No Data</div>
             }
             <div className='mt-5'/>
-            <QuickAdd/>
+            <QuickAdd noBtn/>
         </ContentDisplay>
         </>
 }

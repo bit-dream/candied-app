@@ -9,7 +9,8 @@ const NavItem = (props: {
     isLogo?: boolean | undefined,
     logoClass?: string,
     isFooter?: boolean,
-    onClick?: () => void
+    onClick?: () => void,
+    noDecoration?: boolean
 }) => {
     let mainClassList = twMerge(
         'rounded-full',
@@ -27,6 +28,15 @@ const NavItem = (props: {
         'w-12 h-12',
         'mt-5',
         'self-center',
+        'cursor-pointer'
+    )}
+    if (props.noDecoration) {mainClassList = twMerge(
+        'rounded-full',
+        'w-10 h-10',
+        'mt-3',
+        'self-center',
+        'hover:bg-gray-100',
+        'duration-300 rounded-[22px] hover:rounded-lg',
         'cursor-pointer'
     )}
     let titleClassList = twMerge(

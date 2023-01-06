@@ -67,18 +67,21 @@ const Button:React.FC<Props> = ({
     }
 
     const classList = twMerge(
-        `pt-2 pb-2`,
+        size === 'sm' ? 'pt-1 pb-1' : `pt-2 pb-2`,
         `border`,
         btnColor,
         brdColor,
         hvrColor,
         `rounded-md`,
-        `pl-6 pr-6`,
+        size === 'sm' ? 'pl-1 pr-1' :`pl-6 pr-6`,
         'ml-1 mr-1',
+        'mt-1 mb-1',
+        size === 'sm' ? 'text-xs' : '',
         noShadow ? '' : `shadow-md`,
         noShadow ? '' : `hover:shadow-sm`,
         drkHoverColor,
-        fullWidth ? 'min-w-full' : ''
+        fullWidth ? 'min-w-full' : '',
+        'flex justify-center items-center'
     )
     return <>
         {href ?

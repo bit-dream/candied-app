@@ -1,4 +1,4 @@
-import React, {cloneElement, ReactNode, useContext, useState} from "react";
+import React, {cloneElement, ReactNode, useContext, useEffect, useState} from "react";
 import Button from "../Buttons/Button";
 import Modal from "../Modal/Modal";
 import Tabs from '../Tabs/Tabs'
@@ -16,11 +16,20 @@ interface ElementProps {
 }
 interface Props {
     btn?: React.ReactElement<ElementProps>;
+    extModalOpen?: boolean;
+    ExtUseModalOpen?: React.Dispatch<React.SetStateAction<boolean>>;
+    noBtn?: boolean;
 }
-const QuickAdd:React.FC<Props> = ({btn}) => {
+const QuickAdd:React.FC<Props> = ({btn,extModalOpen,ExtUseModalOpen,noBtn}) => {
     const dbc = new Dbc();
 
     const [modalOpen,UseModalOpen] = useState<boolean>(false);
+
+    useEffect(()=>{
+        if (ExtUseModalOpen) {
+            ExtUseModalOpen(modalOpen);
+        }
+    },[modalOpen])
 
     const [tabSelected,UseTabSelected] = useState<string>('Node');
     const [startBit,UseStartBit] = useState<number>(0);
@@ -46,18 +55,20 @@ const QuickAdd:React.FC<Props> = ({btn}) => {
     }
 
     return <>
-        {btn && React.isValidElement(btn) ?
+        {
+            noBtn ? <></> :
+            btn && React.isValidElement(btn) ?
             cloneElement(btn, {onClick:()=>{UseModalOpen(true);}}):
             <Button
                 text=''
                 color='secondary'
                 icon={<Icon type='add'/>}
                 fullWidth
-                onClick={()=>{UseModalOpen(true)}}
+                onClick={()=>{UseModalOpen(true);}}
             />
         }
     <Modal
-        isOpen={modalOpen}
+        isOpen={modalOpen || extModalOpen ? true : false}
         heading='Quick Add'
         body={
             <>
@@ -118,6 +129,7 @@ const QuickAdd:React.FC<Props> = ({btn}) => {
                     }}/>
                     <Button text='Close' color='danger' noShadow onClick={()=>{
                         UseModalOpen(false);
+                        if (ExtUseModalOpen) {ExtUseModalOpen(false);}
                     }}/>
                 </div>
             </>

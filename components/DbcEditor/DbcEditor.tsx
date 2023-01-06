@@ -12,8 +12,10 @@ import FileLoader from "../FileLoader/FileLoader";
 import SignalEditor from "../SignalEditor/SignalEditor";
 import MessageEditor from "../MessageEditor/MessageEditor";
 import Toast from "../Toast/Toast";
+import OverviewEditor from "../OverviewEditor/OverviewEditor";
+import QuickAdd from "../QuickAdd/QuickAdd";
 
-export type PageSelection = 'Nodes' | 'Messages' | 'Signals' | 'Settings' | 'Upload' | 'Visual' | undefined
+export type PageSelection = 'Nodes' | 'Messages' | 'Signals' | 'Settings' | 'Upload' | 'Visual' | 'Overview' | undefined
 
 interface Props {
     startingData?: DbcData;
@@ -70,22 +72,25 @@ const DbcEditor:React.FC<Props> = ({startingData}) => {
         },5000)
     }
 
+    const [quickAddOpen,UseQuickAddOpen] = useState<boolean>(false);
     return <>
         <DbcContext.Provider value={init}>
         <div className='flex flex-row'>
             <NavBar>
                 <NavItem buttonTitle='CANDIED' logoImage='/candy-cane.svg' logoClass='rotate-45' isLogo/>
+                <NavItem buttonTitle='Overview' icon={<Icon type='grain'/>} onClick={()=>navBtnClicked('Overview')}/>
                 <NavItem buttonTitle='Nodes' icon={<Icon type='lan'/>} onClick={()=>navBtnClicked('Nodes')}/>
                 <NavItem buttonTitle='Messages' icon={<Icon type='mail'/>} onClick={()=>navBtnClicked('Messages')}/>
                 <NavItem buttonTitle='Signals' icon={<Icon type='sensors'/>} onClick={()=>navBtnClicked('Signals')}/>
                 <NavItem buttonTitle='Visual' icon={<Icon type='scatter_plot'/>} onClick={()=>navBtnClicked('Visual')}/>
                 <NavItem buttonTitle='Upload' icon={<Icon type='upload_file'/>} onClick={()=>navBtnClicked('Upload')}/>
-                <NavItem buttonTitle='Settings' icon={<Icon type='settings'/>} onClick={()=>navBtnClicked('Settings')}/>
+                <NavItem buttonTitle='Quick Add' icon={<Icon type='add'/>} onClick={()=>UseQuickAddOpen(true)} noDecoration/>
             </NavBar>
             <NodeEditor pageSelector={selection}/>
             <SignalEditor pageSelector={selection}/>
             <MessageEditor pageSelector={selection}/>
             <DbcSimulation pageSelector={selection}/>
+            <OverviewEditor pageSelector={selection}/>
             <FileLoader pageSelector={selection}
                         onFileLoad={fileUpload}/>
             <ContentDisplay isDisplayed={selection===undefined}>
@@ -93,6 +98,7 @@ const DbcEditor:React.FC<Props> = ({startingData}) => {
             </ContentDisplay>
         </div>
         <Toast message={toast.message} icon={toast.icon} isOpen={toast.isOpen}/>
+        <QuickAdd noBtn extModalOpen={quickAddOpen} ExtUseModalOpen={UseQuickAddOpen}/>
         </DbcContext.Provider>
     </>
 }

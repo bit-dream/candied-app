@@ -1,11 +1,15 @@
 import React from "react";
 import {twMerge} from "tailwind-merge";
+import Button from "../Buttons/Button";
+import Icon from "../Icon/Icon";
 
 interface Props {
     rowData: (any)[];
     key: number;
+    hasDelete?: boolean;
+    onDeleteCallback?: (event: React.MouseEvent<HTMLButtonElement>) => void;
 }
-const TableRow:React.FC<Props> = ({key,rowData}) =>{
+const TableRow:React.FC<Props> = ({key,rowData,hasDelete,onDeleteCallback}) =>{
     const tableItem = twMerge(
         //'border',
         //'dark:border-slate-600',
@@ -39,6 +43,20 @@ const TableRow:React.FC<Props> = ({key,rowData}) =>{
                 {data}
             </td>
         })}
+        {hasDelete ?
+            <td>
+                <span className='flex flex-row justify-end items-center pr-5 text-white text-xs'>
+                    <Button
+                        size={'sm'}
+                        color={'danger'}
+                        text={''}
+                        icon={<Icon type={'remove'}/>}
+                        onClick={onDeleteCallback}
+                    />
+                </span>
+            </td>
+            : <></>
+        }
     </tr>
     </>
 }
