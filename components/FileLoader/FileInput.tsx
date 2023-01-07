@@ -6,6 +6,7 @@ interface Props {
 
 const FileInput: React.FC<Props> = ({ onFileLoad }) => {
 
+
     const processFile = (file: File) => {
         // Validate the file extension
         if (file.name.endsWith('.dbc')) {

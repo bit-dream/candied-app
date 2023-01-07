@@ -3,6 +3,7 @@ import DbcEditor from "../components/DbcEditor/DbcEditor";
 import {Dbc} from "candied";
 import {DbcData} from "candied/lib/dbc/Dbc";
 import React, {createContext, SetStateAction, useState} from "react";
+import genDemoDbc from "../logic/genDemoDbc";
 
 type ContextProps = {
     data: DbcData;
@@ -75,7 +76,7 @@ BO_TX_BU_ 4321 : Node0,Node2;
     `)
 
     return <>
-        <DbcEditor startingData={dbc.data}/>
+        <DbcEditor startingData={genDemoDbc()} startingPage='Visual'/>
     </>
 }
 export default Demo;

@@ -19,6 +19,7 @@ export type PageSelection = 'Nodes' | 'Messages' | 'Signals' | 'Settings' | 'Upl
 
 interface Props {
     startingData?: DbcData;
+    startingPage?: PageSelection;
 }
 
 type ContextProps = {
@@ -33,14 +34,14 @@ const dbcInit: ContextProps = {
 }
 export const DbcContext = createContext(dbcInit);
 
-const DbcEditor:React.FC<Props> = ({startingData}) => {
+const DbcEditor:React.FC<Props> = ({startingData,startingPage}) => {
 
     const dbc = new Dbc();
     const initDataSet = startingData ? startingData : dbc.initDbcDataObj();
     const [data,SetData] = useState<DbcData>(initDataSet);
     const init = {data, SetData};
 
-    const [selection,UseSelection] = useState<PageSelection>(undefined);
+    const [selection,UseSelection] = useState<PageSelection>(startingPage ? startingPage: undefined);
     const [open, UseOpen] = useState<boolean>(false);
     const [toast, UseToast] = useState({
         isOpen: false,

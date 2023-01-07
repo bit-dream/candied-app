@@ -99,7 +99,6 @@ const QuickAdd:React.FC<Props> = ({btn,extModalOpen,ExtUseModalOpen,noBtn}) => {
         }
         footer={
             <>
-                <div>
                     <Button text='Add' color='info' noShadow onClick={()=>{
                         switch(tabSelected) {
                             case 'Node':
@@ -131,7 +130,6 @@ const QuickAdd:React.FC<Props> = ({btn,extModalOpen,ExtUseModalOpen,noBtn}) => {
                         UseModalOpen(false);
                         if (ExtUseModalOpen) {ExtUseModalOpen(false);}
                     }}/>
-                </div>
             </>
         }
     />
