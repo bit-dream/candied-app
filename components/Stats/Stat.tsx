@@ -3,12 +3,13 @@ import React from 'react';
 interface Props {
     title: string;
     content: string;
+    type: 'Pills' | 'Solid';
 }
-const Stat:React.FC<Props> = ({title,content}) => {
+const Stat:React.FC<Props> = ({title,content,type}) => {
     return (
-        <div className='dark:bg-slate-500 bg-white rounded-lg drop-shadow-lg pl-7 pr-7 pt-4 pb-4 w-1/4'>
-            <div className='text-xs text-gray-800 whitespace-nowrap truncate'>{title}</div>
-            <div className='text-3xl text-black whitespace-nowrap truncate'>{content}</div>
+        <div className='border-r border-r-gray-500 pr-7 pt-4 pb-4 pl-2 pr-2 w-1/3 text-center last:border-none'>
+            <div className='text-3xl dark:text-white text-black whitespace-nowrap truncate'>{content}</div>
+            <div className='text-xs dark:text-slate-400 text-grey-300 whitespace-nowrap truncate'>{title}</div>
         </div>
     );
 };

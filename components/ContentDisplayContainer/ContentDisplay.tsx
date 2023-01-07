@@ -14,7 +14,7 @@ const ContentDisplay:React.FC<Props>  = ({isDisplayed,children,noDecoration}) =>
         'max-h-screen',
         noDecoration ? '' : 'mx-auto',
         'flex flex-col',
-        'justify-start',
+        'justify-between',
         'overflow-hidden',
         noDecoration ? '' : 'p-5',
         isDisplayed ? '': 'hidden'
