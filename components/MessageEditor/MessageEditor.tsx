@@ -1,10 +1,7 @@
 import ContentDisplay from "../ContentDisplayContainer/ContentDisplay";
 import Table from "../Table/Table";
-import {DbcData, Message, Signal} from "candied/dist/dbc/Dbc";
+import {Message} from "candied/dist/dbc/Dbc";
 import React, {useContext} from "react";
-import TableRow from "../Table/TableRow";
-import Button from "../Buttons/Button";
-import Icon from "../Icon/Icon";
 import {DbcContext, PageSelection} from "../DbcEditor/DbcEditor";
 import QuickAdd from "../QuickAdd/QuickAdd";
 import Stats from "../Stats/Stats";

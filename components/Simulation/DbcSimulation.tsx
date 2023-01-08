@@ -4,6 +4,7 @@ import React, {useContext, useEffect, useState} from "react";
 import Simulation from "./simulation";
 import SimHelpModal from "../Modal/SimHelpModal";
 import SimulationModal from "../Modal/SimulationModal";
+import {Message, Signal, Node} from "candied/lib/dbc/Dbc";
 
 interface Props {
     pageSelector: PageSelection;
@@ -14,11 +15,13 @@ const DbcSimulation:React.FC<Props> = ({pageSelector,simulation}) => {
     const [infoModalOpen,UseInfoModalOpen] = useState<boolean>(false);
     const [infoModalTitle,UseInfoModalTitle] = useState<string>('');
     const [nodeType,UseNodeType] = useState<string|undefined>(undefined);
+    const [nodeObj,UseNodeObj] = useState<Node|Message|Signal|undefined>(undefined);
 
     simulation.setOnClickCallback = (event: any, data: any) => {
         if (data && data.type && data.obj) {
             UseNodeType(data.type)
             UseInfoModalTitle(data.obj.name)
+            UseNodeObj(data.obj);
             UseInfoModalOpen(true);
         }
     };
@@ -42,7 +45,9 @@ const DbcSimulation:React.FC<Props> = ({pageSelector,simulation}) => {
                 selection={nodeType}
                 isOpen={infoModalOpen}
                 SetOpen={UseInfoModalOpen}
-                title={infoModalTitle}/>
+                title={infoModalTitle}
+                nodeObj={nodeObj}
+            />
         </ContentDisplay>
         </DbcContext.Provider>
     );
