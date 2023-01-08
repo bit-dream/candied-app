@@ -1,15 +1,9 @@
 import ContentDisplay from "../ContentDisplayContainer/ContentDisplay";
 import {DbcContext, PageSelection} from "../DbcEditor/DbcEditor";
-import React, {useContext, useEffect, useReducer, useState} from "react";
-import createGraph from "./transforms";
+import React, {useContext, useEffect, useState} from "react";
 import Simulation from "./simulation";
-import FloatButton from "../Buttons/FloatButton";
-import QuickAdd from "../QuickAdd/QuickAdd";
-import Modal from "../Modal/Modal";
-import Button from "../Buttons/Button";
-import Checkbox from "../Checkbox/Checkbox";
-import UseLocalStorage from "../../hooks/UseLocalStorage";
 import SimHelpModal from "../Modal/SimHelpModal";
+import SimulationModal from "../Modal/SimulationModal";
 
 interface Props {
     pageSelector: PageSelection;
@@ -17,6 +11,17 @@ interface Props {
 }
 const DbcSimulation:React.FC<Props> = ({pageSelector,simulation}) => {
     const {data, SetData} = useContext(DbcContext);
+    const [infoModalOpen,UseInfoModalOpen] = useState<boolean>(false);
+    const [infoModalTitle,UseInfoModalTitle] = useState<string>('');
+    const [nodeType,UseNodeType] = useState<string|undefined>(undefined);
+
+    simulation.setOnClickCallback = (event: any, data: any) => {
+        if (data && data.type && data.obj) {
+            UseNodeType(data.type)
+            UseInfoModalTitle(data.obj.name)
+            UseInfoModalOpen(true);
+        }
+    };
 
     useEffect(()=>{
         let isDarkMode = window.matchMedia("(prefers-color-scheme: dark)").matches;
@@ -33,6 +38,11 @@ const DbcSimulation:React.FC<Props> = ({pageSelector,simulation}) => {
         <ContentDisplay isDisplayed={pageSelector === 'Visual'} noDecoration>
             <div id='SIMULATION'></div>
             <SimHelpModal/>
+            <SimulationModal
+                selection={nodeType}
+                isOpen={infoModalOpen}
+                SetOpen={UseInfoModalOpen}
+                title={infoModalTitle}/>
         </ContentDisplay>
         </DbcContext.Provider>
     );

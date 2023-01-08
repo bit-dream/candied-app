@@ -42,17 +42,23 @@ class Simulation {
 
     constructor(
         selector: string,
-        graph: Graph,
-        callback: SimulationCallback=(event: any, data: any)=>{}, 
-        hoverCallback: SimulationCallback=(event: any, data: any)=>{},
+        graph: Graph
         ) {
         this.graph = graph;
         this.selector = '#' + selector;
-        this.onClickCallback = callback;
-        this.onHoverCallback = hoverCallback;
+        this.onClickCallback = (event: any, data: any)=>{};
+        this.onHoverCallback = (event: any, data: any)=>{};
         this.width = 1000;
         this.height = 700;
     };
+
+    set setOnClickCallback(callback: SimulationCallback) {
+        this.onClickCallback = callback;
+    }
+
+    set setOnHoverCallback(callback: SimulationCallback) {
+        this.onHoverCallback = callback;
+    }
 
     set setDocument(doc:any) {
         this.document = doc;
