@@ -94,6 +94,7 @@ const DbcEditor:React.FC<Props> = ({startingData,startingPage}) => {
             '/mail-svgrepo-com.svg',
             '/letter-s-svgrepo-com.svg'
         );
+        simulation.init();
     },[data])
 
     const [quickAddOpen,UseQuickAddOpen] = useState<boolean>(false);
