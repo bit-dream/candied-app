@@ -15,7 +15,7 @@ const NavBar = (props: PropsWithChildren) => {
 
     return <>
         <FloatButton icon={'widgets'} mobileOnly onClick={()=>{UseMobileMenuDisplayed(true)}} position={'bottom-left'}/>
-        <div className='h-screen w-16 bg-amber-300 hidden lg:block md:block'>
+        <div className='h-screen w-16 z-30 bg-amber-300 hidden lg:block md:block fixed w-full'>
             <div className={classList}>
                 {props.children}
             </div>

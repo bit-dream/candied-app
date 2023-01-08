@@ -26,7 +26,8 @@ const FloatButton:React.FC<Props> = ({icon,onClick,mobileOnly,position}) => {
         'hover:bg-indigo-300',
         'duration-300 hover:w-20 hover:h-20 hover:translate-x-1 hover:translate-y-1',
         'flex justify-center items-center',
-        `${mobileOnly ? 'visible sm:invisible md:invisible lg:invisible' : ''}`
+        `${mobileOnly ? 'visible sm:invisible md:invisible lg:invisible' : ''}`,
+        'fixed'
     );
     return (
         <>

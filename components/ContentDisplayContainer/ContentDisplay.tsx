@@ -4,10 +4,11 @@ import {twMerge} from "tailwind-merge";
 interface Props {
     isDisplayed: boolean;
     children?: ReactNode;
-    noDecoration?: boolean
+    noDecoration?: boolean;
+    allowOverflow?: boolean
 }
 
-const ContentDisplay:React.FC<Props>  = ({isDisplayed,children,noDecoration}) => {
+const ContentDisplay:React.FC<Props>  = ({isDisplayed,children,noDecoration,allowOverflow}) => {
     const classList = twMerge(
         noDecoration ? '' :'container',
         noDecoration ? 'w-full' : '',
@@ -15,7 +16,7 @@ const ContentDisplay:React.FC<Props>  = ({isDisplayed,children,noDecoration}) =>
         noDecoration ? '' : 'mx-auto',
         'flex flex-col',
         'justify-between',
-        'overflow-hidden',
+        allowOverflow ? '' :'overflow-hidden',
         noDecoration ? '' : 'p-5',
         isDisplayed ? '': 'hidden'
     )

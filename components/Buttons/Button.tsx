@@ -73,7 +73,7 @@ const Button:React.FC<Props> = ({
         brdColor,
         hvrColor,
         `rounded-md`,
-        size === 'sm' ? 'pl-1 pr-1' :`pl-6 pr-6`,
+        size === 'sm' ? 'pl-2 pr-2' :`pl-6 pr-6`,
         'ml-1 mr-1',
         'mt-1 mb-1',
         size === 'sm' ? 'text-xs' : '',

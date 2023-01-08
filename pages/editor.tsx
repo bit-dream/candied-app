@@ -5,7 +5,7 @@ import React, {useState} from "react";
 const Editor: NextPage = () => {
 
     return <>
-        <DbcEditor/>
+        <DbcEditor startingPage={'Overview'}/>
     </>
 }
 export default Editor;

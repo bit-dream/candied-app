@@ -2,9 +2,9 @@ import React, {cloneElement, ReactNode, useContext, useEffect, useState} from "r
 import Button from "../Buttons/Button";
 import Modal from "../Modal/Modal";
 import Tabs from '../Tabs/Tabs'
-import MessageBody from "../Modal/MessageBody";
-import NodeBody from "../Modal/NodeBody";
-import SignalBody from "../Modal/SignalBody";
+import MessageBody from "./MessageBody";
+import NodeBody from "./NodeBody";
+import SignalBody from "./SignalBody";
 import {Dbc} from "candied";
 import {DbcContext} from "../DbcEditor/DbcEditor";
 import Icon from "../Icon/Icon";
@@ -34,14 +34,21 @@ const QuickAdd:React.FC<Props> = ({btn,extModalOpen,ExtUseModalOpen,noBtn,closeC
     },[modalOpen])
 
     const [tabSelected,UseTabSelected] = useState<string>('Node');
+
+    // Signal Properties
     const [startBit,UseStartBit] = useState<number>(0);
     const [signalLength,UseSignalLength] = useState<number>(0);
     const [signalName,UseSignalName] = useState<string>('');
     const [selectedMessage,UseSelectedMessage] = useState<string>('');
+
+    // Node properties
     const [nodeName,UseNodeName] = useState<string>('');
+
+    // Message properties
     const [messageName,UseMessageName] = useState<string>('');
     const [messageDlc,UseMessageDlc] = useState<number>(8);
     const [messageId,UseMessageId] = useState<number>(0);
+    const [messageNodeLink,UseMessageNodeLink] = useState<string|undefined>(undefined);
 
     const {data, SetData} = useContext(DbcContext);
 
@@ -84,9 +91,14 @@ const QuickAdd:React.FC<Props> = ({btn,extModalOpen,ExtUseModalOpen,noBtn,closeC
                         <NodeBody UseNodeName={UseNodeName}/> :
                     (tabSelected === 'Message') ?
                         <MessageBody
+                            nodes={data.nodes}
                             UseMessageName={UseMessageName}
                             UseMessageId={UseMessageId}
                             UseMessageDlc={UseMessageDlc}
+                            UseMessageNode={UseMessageNodeLink}
+                            onNodeSelected={(selected) => {
+                                if (selected !== 'No Selection') UseMessageNodeLink(selected);
+                            }}
                         /> :
                     (tabSelected === 'Signal') ?
                         <SignalBody
@@ -111,7 +123,11 @@ const QuickAdd:React.FC<Props> = ({btn,extModalOpen,ExtUseModalOpen,noBtn,closeC
                                 })
                                 break;
                             case 'Message':
-                                const msg = dbc.createMessage(messageName,messageId,messageDlc);
+                                const msg = dbc.createMessage(
+                                    messageName,
+                                    messageId,
+                                    messageDlc,
+                                    messageNodeLink ? {sendingNode: messageNodeLink} : undefined);
                                 data.messages.set(messageName,msg);
                                 break;
                             case 'Signal':

@@ -2,7 +2,7 @@ import NavBar from '../NavBar/NavBar';
 import NavItem from "../NavBar/NavItem";
 import Icon from "../Icon/Icon";
 import Image from "next/image";
-import React, {createContext, SetStateAction, useContext, useState} from "react";
+import React, {createContext, SetStateAction, useContext, useEffect, useLayoutEffect, useMemo, useState} from "react";
 import ContentDisplay from "../ContentDisplayContainer/ContentDisplay";
 import {Dbc} from 'candied';
 import {DbcData} from "candied/lib/dbc/Dbc";
@@ -16,6 +16,7 @@ import OverviewEditor from "../OverviewEditor/OverviewEditor";
 import QuickAdd from "../QuickAdd/QuickAdd";
 import createGraph from "../Simulation/transforms";
 import Simulation from "../Simulation/simulation";
+import simulation from "../Simulation/simulation";
 
 export type PageSelection = 'Nodes' | 'Messages' | 'Signals' | 'Settings' | 'Upload' | 'Visual' | 'Overview' | undefined
 
@@ -82,7 +83,18 @@ const DbcEditor:React.FC<Props> = ({startingData,startingPage}) => {
         '/mail-svgrepo-com.svg',
         '/letter-s-svgrepo-com.svg'
     );
-    let simulation = new Simulation('SIMULATION',graph)
+
+    const simulation = useMemo(() => new Simulation('SIMULATION', graph), []);
+
+    useEffect(()=>{
+        simulation.setNewGraph = createGraph(
+            data,
+            '/network-tree-svgrepo-com.svg',
+            '/cpu-svgrepo-com.svg',
+            '/mail-svgrepo-com.svg',
+            '/letter-s-svgrepo-com.svg'
+        );
+    },[data])
 
     const [quickAddOpen,UseQuickAddOpen] = useState<boolean>(false);
     return <>

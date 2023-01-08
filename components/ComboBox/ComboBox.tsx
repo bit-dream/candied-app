@@ -4,13 +4,13 @@ import Icon from '../Icon/Icon'
 
 interface Props {
     items: string[];
-    selectedItem: string;
+    selectedItem: string|undefined;
     onSelection: (selected: string) => void;
-
+    position?: string;
 }
-const ComboBox:React.FC<Props> = ({items,selectedItem, onSelection}) => {
+const ComboBox:React.FC<Props> = ({items,selectedItem, onSelection, position}) => {
     const [open, SetOpen] = useState(false);
-    const [currentSelection, SetCurrentSelection] = useState<string>(selectedItem);
+    const [currentSelection, SetCurrentSelection] = useState<string|undefined>(selectedItem);
 
     const liSelected = (event: React.MouseEvent<HTMLLIElement>) => {
         let target = event.target as HTMLLIElement;
@@ -19,9 +19,11 @@ const ComboBox:React.FC<Props> = ({items,selectedItem, onSelection}) => {
     }
 
     useEffect(()=>{
-        onSelection(currentSelection);
+        if(currentSelection) onSelection(currentSelection);
     },[currentSelection, onSelection])
 
+    let dropDownDirection = ''
+    if (position === 'top') dropDownDirection = 'bottom-12'
     return <>
         <div className='mb-6'>
             <label id="listbox-label" className="block text-sm font-medium text-black dark:text-white">Assigned to</label>
@@ -35,7 +37,7 @@ const ComboBox:React.FC<Props> = ({items,selectedItem, onSelection}) => {
                   </div>
                 </button>
 
-                <ul className={`${open ? '' : 'hidden'} absolute z-10 mt-1 max-h-56 w-full overflow-auto rounded-md bg-white dark:bg-slate-700 dark:text-white text-black py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm`}
+                <ul className={`${open ? '' : 'hidden'} absolute ${dropDownDirection} z-20 mt-1 max-h-56 w-full overflow-auto rounded-md bg-white dark:bg-slate-700 dark:text-white text-black py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm`}
                     tabIndex={-1} role="listbox" aria-labelledby="listbox-label"
                     aria-activedescendant="listbox-option-3">
                     {
