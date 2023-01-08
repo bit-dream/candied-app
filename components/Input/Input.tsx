@@ -5,8 +5,9 @@ interface Props {
     id: string;
     onChange?: (value: string) => void;
     defaultVal?: string|number;
+    placeholder?: string;
 }
-const Input:React.FC<Props> = ({label,id,onChange,defaultVal}) => {
+const Input:React.FC<Props> = ({label,id,onChange,defaultVal,placeholder}) => {
 
     const inputRef = useRef(null);
     const [inputValue, UseInputValue] = useState<string|number>(defaultVal !== undefined ? defaultVal : '');
@@ -26,6 +27,7 @@ const Input:React.FC<Props> = ({label,id,onChange,defaultVal}) => {
                 <input type="text" id={id} onChange={getUserInput} ref={inputRef}
                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500"
                        defaultValue={inputValue}
+                       placeholder={placeholder ? placeholder : ''}
                 />
             </div>
         </>

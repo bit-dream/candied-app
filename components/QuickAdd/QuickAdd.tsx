@@ -125,6 +125,8 @@ const QuickAdd:React.FC<Props> = ({btn,extModalOpen,ExtUseModalOpen,noBtn}) => {
                                 break;
                         }
                         SetData(data);
+                        UseModalOpen(false);
+                        if (ExtUseModalOpen) {ExtUseModalOpen(false);}
                     }}/>
                     <Button text='Close' color='danger' noShadow onClick={()=>{
                         UseModalOpen(false);

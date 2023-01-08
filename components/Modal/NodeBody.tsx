@@ -12,7 +12,7 @@ const NodeBody:React.FC<Props> = ({UseNodeName}) => {
     }
 
     return <>
-        <Input id={'node_name_field'} label={'Node Name'} onChange={nodeNameChange}/>
+        <Input id={'node_name_field'} label={'Node Name'} onChange={nodeNameChange} placeholder='Node Name'/>
     </>
 }
 export default NodeBody;

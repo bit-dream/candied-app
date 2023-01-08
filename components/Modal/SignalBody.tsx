@@ -36,9 +36,9 @@ const SignalBody:React.FC<Props> = ({UseStartBit,UseSignalLength,UseSignalName,U
             selectedItem={messages[0]}
             onSelection={messageSelected}
         />
-        <Input id={'signal_name_field'} label={'Signal Name'} onChange={nameChange}/>
-        <Input id={'signal_start_bit_field'} label={'Start Bit'} onChange={startBitChange} defaultVal={0}/>
-        <Input id={'signal_length_field'} label={'Length'} onChange={lengthChange} defaultVal={8}/>
+        <Input id={'signal_name_field'} label={'Signal Name'} onChange={nameChange} placeholder='Signal Name'/>
+        <Input id={'signal_start_bit_field'} label={'Start Bit'} onChange={startBitChange} placeholder='Number' />
+        <Input id={'signal_length_field'} label={'Length'} onChange={lengthChange} placeholder='Number'/>
     </>
 }
 export default SignalBody;

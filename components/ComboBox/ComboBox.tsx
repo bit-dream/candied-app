@@ -1,5 +1,6 @@
 import React, {Fragment, ReactNode, useEffect, useState} from 'react'
 import ComboBoxItem from "./ComboBoxItem";
+import Icon from '../Icon/Icon'
 
 interface Props {
     items: string[];
@@ -26,12 +27,12 @@ const ComboBox:React.FC<Props> = ({items,selectedItem, onSelection}) => {
             <label id="listbox-label" className="block text-sm font-medium text-black dark:text-white">Assigned to</label>
             <div className="relative mt-2">
                 <button type="button" onClick={()=>SetOpen(!open)}
-                        className="relative w-full cursor-default rounded-md border border-gray-300 bg-white dark:bg-slate-700 py-2.5 pr-10 text-left shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500 sm:text-sm"
+                        className="relative w-full cursor-default rounded-md border border-gray-300 bg-white dark:bg-slate-700 py-2.5 pr-2 pl-3 text-left shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500 sm:text-sm"
                         aria-haspopup="listbox" aria-expanded="true" aria-labelledby="listbox-label">
-                  <span className="flex items-center">
-                    <span className="ml-3 block truncate">{currentSelection}</span>
-                  </span>
-
+                  <div className="flex flex-row justify-between">
+                    <span className="truncate">{currentSelection}</span>
+                    <span className='flex justify-center items-center'><Icon type='arrow_drop_down'/></span>
+                  </div>
                 </button>
 
                 <ul className={`${open ? '' : 'hidden'} absolute z-10 mt-1 max-h-56 w-full overflow-auto rounded-md bg-white dark:bg-slate-700 dark:text-white text-black py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm`}
