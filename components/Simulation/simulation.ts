@@ -14,6 +14,8 @@ class Simulation {
     onClickCallback: SimulationCallback;
     onHoverCallback: SimulationCallback;
 
+    document: any;
+
     // Main simulation settings
     settings = {
         minZoom: 0.1,
@@ -39,20 +41,28 @@ class Simulation {
     texts: any;
 
     constructor(
-        selector: string, 
+        selector: string,
         graph: Graph,
-        document: any,
         callback: SimulationCallback=(event: any, data: any)=>{}, 
         hoverCallback: SimulationCallback=(event: any, data: any)=>{},
         ) {
-        this.selector = '#' + selector;
         this.graph = graph;
-        this.width = document.innerWidth;
-        this.height = document.innerHeight;
+        this.selector = '#' + selector;
         this.onClickCallback = callback;
         this.onHoverCallback = hoverCallback;
+        this.width = 1000;
+        this.height = 700;
     };
 
+    set setDocument(doc:any) {
+        this.document = doc;
+        this.width = this.document.innerWidth;
+        this.height = this.document.innerHeight;
+    }
+
+    set setNewGraph(graph: Graph) {
+        this.graph = graph;
+    }
     set setWidth(width: number) {
         this.width = width;
     }
@@ -227,14 +237,13 @@ class Simulation {
             .on("end", dragended)
     }
 
-    documentResizeHandler(document: any) {
+    documentResizeHandler() {
         addEventListener("resize", _.debounce(
             () => {
-                console.log(document.innerWidth,document.innerHeight)
                 this.forceSimulation.stop();
                 d3.select(this.selector).html("");
-                this.setWidth = document.innerWidth;
-                this.setHeight = document.innerHeight;
+                this.setWidth = this.document.innerWidth;
+                this.setHeight = this.document.innerHeight;
                 this.simulationRestart();
             }, 100)
         );

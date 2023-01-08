@@ -14,6 +14,8 @@ import MessageEditor from "../MessageEditor/MessageEditor";
 import Toast from "../Toast/Toast";
 import OverviewEditor from "../OverviewEditor/OverviewEditor";
 import QuickAdd from "../QuickAdd/QuickAdd";
+import createGraph from "../Simulation/transforms";
+import Simulation from "../Simulation/simulation";
 
 export type PageSelection = 'Nodes' | 'Messages' | 'Signals' | 'Settings' | 'Upload' | 'Visual' | 'Overview' | undefined
 
@@ -73,6 +75,15 @@ const DbcEditor:React.FC<Props> = ({startingData,startingPage}) => {
         },5000)
     }
 
+    let graph = createGraph(
+        data,
+        '/network-tree-svgrepo-com.svg',
+        '/cpu-svgrepo-com.svg',
+        '/mail-svgrepo-com.svg',
+        '/letter-s-svgrepo-com.svg'
+    );
+    let simulation = new Simulation('SIMULATION',graph)
+
     const [quickAddOpen,UseQuickAddOpen] = useState<boolean>(false);
     return <>
         <DbcContext.Provider value={init}>
@@ -90,7 +101,7 @@ const DbcEditor:React.FC<Props> = ({startingData,startingPage}) => {
             <NodeEditor pageSelector={selection}/>
             <SignalEditor pageSelector={selection}/>
             <MessageEditor pageSelector={selection}/>
-            <DbcSimulation pageSelector={selection}/>
+            <DbcSimulation pageSelector={selection} simulation={simulation}/>
             <OverviewEditor pageSelector={selection}/>
             <FileLoader pageSelector={selection}
                         onFileLoad={fileUpload}/>
@@ -99,7 +110,21 @@ const DbcEditor:React.FC<Props> = ({startingData,startingPage}) => {
             </ContentDisplay>
         </div>
         <Toast message={toast.message} icon={toast.icon} isOpen={toast.isOpen}/>
-        <QuickAdd noBtn extModalOpen={quickAddOpen} ExtUseModalOpen={UseQuickAddOpen}/>
+        <QuickAdd
+            noBtn
+            extModalOpen={quickAddOpen}
+            ExtUseModalOpen={UseQuickAddOpen}
+            addClicked={()=>{
+                simulation.setNewGraph = createGraph(
+                    data,
+                    '/network-tree-svgrepo-com.svg',
+                    '/cpu-svgrepo-com.svg',
+                    '/mail-svgrepo-com.svg',
+                    '/letter-s-svgrepo-com.svg'
+                )
+                simulation.init()
+            }}
+        />
         </DbcContext.Provider>
     </>
 }

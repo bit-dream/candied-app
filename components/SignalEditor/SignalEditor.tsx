@@ -71,7 +71,7 @@ const SignalEditor:React.FC<Props> = ({pageSelector}) => {
                     rows={createSignalRows(data.messages)}
                 />
                 <Stats>
-                    <Stat title={'# signals'} content={
+                    <Stat title={'signals'} content={
                         Array.from(data.messages.values()).reduce((prev,curr)=>{
                             return prev + curr.signals.size;
                         },0).toString()

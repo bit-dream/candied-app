@@ -13,15 +13,15 @@ const OverviewEditor:React.FC<Props> = ({pageSelector}) => {
     return (
         <ContentDisplay isDisplayed={pageSelector === 'Overview'}>
             <Stats>
-                <Stat title={'# nodes'}
+                <Stat title={'nodes'}
                       content={
                           data.nodes.size.toString()
                 }/>
-                <Stat title={'# messages'}
+                <Stat title={'messages'}
                       content={
                           data.messages.size.toString()
                 }/>
-                <Stat title={'# signals'}
+                <Stat title={'signals'}
                       content={
                           Array.from(data.messages.values()).reduce((prev,curr)=>{
                               return prev + curr.signals.size;

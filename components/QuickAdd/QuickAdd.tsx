@@ -19,8 +19,10 @@ interface Props {
     extModalOpen?: boolean;
     ExtUseModalOpen?: React.Dispatch<React.SetStateAction<boolean>>;
     noBtn?: boolean;
+    closeClicked?: ()=>void;
+    addClicked?: ()=>void;
 }
-const QuickAdd:React.FC<Props> = ({btn,extModalOpen,ExtUseModalOpen,noBtn}) => {
+const QuickAdd:React.FC<Props> = ({btn,extModalOpen,ExtUseModalOpen,noBtn,closeClicked,addClicked}) => {
     const dbc = new Dbc();
 
     const [modalOpen,UseModalOpen] = useState<boolean>(false);
@@ -127,10 +129,12 @@ const QuickAdd:React.FC<Props> = ({btn,extModalOpen,ExtUseModalOpen,noBtn}) => {
                         SetData(data);
                         UseModalOpen(false);
                         if (ExtUseModalOpen) {ExtUseModalOpen(false);}
+                        if (addClicked) addClicked();
                     }}/>
                     <Button text='Close' color='danger' noShadow onClick={()=>{
                         UseModalOpen(false);
                         if (ExtUseModalOpen) {ExtUseModalOpen(false);}
+                        if (closeClicked) closeClicked();
                     }}/>
             </>
         }

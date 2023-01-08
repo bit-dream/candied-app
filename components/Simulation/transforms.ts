@@ -1,5 +1,6 @@
 import type { DbcData, Message, Signal, Node } from "candied/dist/dbc/Dbc";
 import type { Graph, GraphLinkProps, GraphNodeProps } from './types';
+import { v4 as uuidv4 } from 'uuid';
 
 const createGraph = (
     data: DbcData,
@@ -26,7 +27,7 @@ const createGraph = (
     });
 
     data.nodes.forEach((node: Node) => {
-        const nodeName = node.name + crypto.randomUUID();
+        const nodeName = node.name + uuidv4();
         graph.nodes.push({
             id: nodeName,
             name: node.name,
@@ -44,7 +45,7 @@ const createGraph = (
 
     // Append all messages as nodes
     data.messages.forEach((message: Message) => {
-        const messageName = message.name + crypto.randomUUID();
+        const messageName = message.name + uuidv4();
         graph.nodes.push({
             id: messageName,
             name: message.name,
@@ -83,7 +84,7 @@ const createGraph = (
 
         // Append all signals as nodes
         message.signals.forEach((signal: Signal) => {
-            const signalName = signal.name + crypto.randomUUID();
+            const signalName = signal.name + uuidv4();
             graph.nodes.push({
                 id: signalName,
                 name: signal.name,

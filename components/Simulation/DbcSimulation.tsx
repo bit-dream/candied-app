@@ -13,31 +13,25 @@ import SimHelpModal from "../Modal/SimHelpModal";
 
 interface Props {
     pageSelector: PageSelection;
+    simulation: Simulation;
 }
-const DbcSimulation:React.FC<Props> = ({pageSelector}) => {
+const DbcSimulation:React.FC<Props> = ({pageSelector,simulation}) => {
     const {data, SetData} = useContext(DbcContext);
 
     useEffect(()=>{
         let isDarkMode = window.matchMedia("(prefers-color-scheme: dark)").matches;
         if (data && pageSelector==='Visual') {
-            let graph = createGraph(
-                data,
-                '/network-tree-svgrepo-com.svg',
-                '/cpu-svgrepo-com.svg',
-                '/mail-svgrepo-com.svg',
-                '/letter-s-svgrepo-com.svg'
-            );
-            let simulation = new Simulation('SIMULATION',graph, window)
-            simulation.documentResizeHandler(window)
+            simulation.setDocument = window;
+            if (!isDarkMode) {simulation.settings.fontColor = 'black'}
+            simulation.documentResizeHandler()
             simulation.init();
         }
-    },[data, pageSelector])
+    },[data, pageSelector,simulation])
 
     return(
         <DbcContext.Provider value={{data,SetData}}>
         <ContentDisplay isDisplayed={pageSelector === 'Visual'} noDecoration>
             <div id='SIMULATION'></div>
-            <QuickAdd btn={<FloatButton icon={'add'} position={'bottom-right'}/>}/>
             <SimHelpModal/>
         </ContentDisplay>
         </DbcContext.Provider>

@@ -58,8 +58,8 @@ const MessageEditor:React.FC<Props> = ({pageSelector}) => {
                     rows={createMessageRows(data.messages)}
                 />
                 <Stats>
-                    <Stat title={'# messages'} content={data.messages.size.toString()}/>
-                    <Stat title={'total # bytes'} content={
+                    <Stat title={'messages'} content={data.messages.size.toString()}/>
+                    <Stat title={'total bytes'} content={
                         Array.from(data.messages.values()).reduce((prev,curr)=>{
                             return prev + curr.dlc;
                         },0).toString()
