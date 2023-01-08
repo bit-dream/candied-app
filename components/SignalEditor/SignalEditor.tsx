@@ -65,7 +65,6 @@ const SignalEditor:React.FC<Props> = ({pageSelector}) => {
         <ContentDisplay isDisplayed={pageSelector === 'Signals'}>
             {data && data.messages.size ?
                 <>
-                <h1 className='text-3xl pb-3 text-black dark:text-white'>Signals</h1>
                 <Table
                     headings={['Name','Message','Start Bit','Length', 'Data Type', 'Endian','Signed','Min', 'Max', 'Factor','Offset']}
                     rows={createSignalRows(data.messages)}

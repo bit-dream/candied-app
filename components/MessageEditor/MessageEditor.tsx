@@ -52,7 +52,6 @@ const MessageEditor:React.FC<Props> = ({pageSelector}) => {
         <ContentDisplay isDisplayed={pageSelector === 'Messages'}>
             {data && data.messages.size ?
                 <>
-                <h1 className='text-3xl pb-3 text-black dark:text-white'>Messages</h1>
                 <Table
                     headings={['Name','ID','DLC', 'Node', 'Description']}
                     rows={createMessageRows(data.messages)}

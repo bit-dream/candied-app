@@ -20,7 +20,6 @@ const NodeEditor:React.FC<Props> = ({pageSelector}) => {
         <ContentDisplay isDisplayed={pageSelector === 'Nodes'}>
             {data && data.nodes.size ?
                 <>
-                <h1 className='text-3xl pb-3 text-black dark:text-white'>Nodes</h1>
                 <Table
                     headings={['Name','Description']}
                     rows={
