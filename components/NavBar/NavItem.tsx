@@ -28,7 +28,8 @@ const NavItem = (props: {
         'w-12 h-12',
         'mt-5',
         'self-center',
-        'cursor-pointer'
+        'cursor-pointer',
+        'hover'
     )}
     if (props.noDecoration) {mainClassList = twMerge(
         'rounded-full',

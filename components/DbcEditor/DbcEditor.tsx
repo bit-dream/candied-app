@@ -89,7 +89,11 @@ const DbcEditor:React.FC<Props> = ({startingData,startingPage}) => {
         <DbcContext.Provider value={init}>
         <div className='flex flex-row'>
             <NavBar>
-                <NavItem buttonTitle='CANDIED' logoImage='/candy-cane.svg' logoClass='rotate-45' isLogo/>
+                <NavItem buttonTitle='CANDIED'
+                         logoImage='/candy-cane.svg'
+                         logoClass='rotate-45 duration-500 hover:-rotate-[325deg]'
+                         isLogo
+                />
                 <NavItem buttonTitle='Overview' icon={<Icon type='grain'/>} onClick={()=>navBtnClicked('Overview')}/>
                 <NavItem buttonTitle='Nodes' icon={<Icon type='lan'/>} onClick={()=>navBtnClicked('Nodes')}/>
                 <NavItem buttonTitle='Messages' icon={<Icon type='mail'/>} onClick={()=>navBtnClicked('Messages')}/>
