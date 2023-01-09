@@ -7,8 +7,9 @@ interface Props {
     selectedItem: string|undefined;
     onSelection: (selected: string) => void;
     position?: string;
+    required?: boolean;
 }
-const ComboBox:React.FC<Props> = ({items,selectedItem, onSelection, position}) => {
+const ComboBox:React.FC<Props> = ({items,selectedItem, onSelection, position,required}) => {
     const [open, SetOpen] = useState(false);
     const [currentSelection, SetCurrentSelection] = useState<string|undefined>(selectedItem);
 
@@ -26,7 +27,10 @@ const ComboBox:React.FC<Props> = ({items,selectedItem, onSelection, position}) =
     if (position === 'top') dropDownDirection = 'bottom-12'
     return <>
         <div className='mb-6'>
-            <label id="listbox-label" className="block text-sm font-medium text-black dark:text-white">Assigned to</label>
+            <label id="listbox-label" className="block text-sm font-medium text-black dark:text-white">
+                <span>Assigned to</span>
+                <span className='float-right text-gray-400'>{required ? 'Required' : 'Optional'}</span>
+            </label>
             <div className="relative mt-2">
                 <button type="button" onClick={()=>SetOpen(!open)}
                         className="relative w-full cursor-default rounded-md border border-gray-300 bg-white dark:bg-slate-700 py-2.5 pr-2 pl-3 text-left shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500 sm:text-sm"

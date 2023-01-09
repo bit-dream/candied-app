@@ -26,9 +26,9 @@ const MessageBody:React.FC<Props> = ({nodes,UseMessageName,UseMessageDlc,UseMess
     let nodeList = Array.from(nodes.keys());
     nodeList.unshift('No Selection')
     return <>
-        <Input id={'message_name_field'} label={'Message Name'} onChange={nameChange} placeholder='Message Name'/>
-        <Input id={'message_id_field'} label={'Message ID'} onChange={idChange} placeholder='Number'/>
-        <Input id={'message_dlc_field'} label={'Message DLC'} onChange={lengthChange} placeholder='Number'/>
+        <Input id={'message_name_field'} label={'Message Name'} onChange={nameChange} placeholder='Message Name' required/>
+        <Input id={'message_id_field'} label={'Message ID'} onChange={idChange} placeholder='Number' required/>
+        <Input id={'message_dlc_field'} label={'Message DLC'} onChange={lengthChange} placeholder='Number' required/>
         <ComboBox
             items={nodeList}
             selectedItem={nodeList[0]}

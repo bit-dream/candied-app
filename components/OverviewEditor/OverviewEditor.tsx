@@ -2,13 +2,13 @@ import React, {useContext, useEffect} from 'react';
 import {DbcContext, PageSelection} from "../DbcEditor/DbcEditor";
 import ContentDisplay from "../ContentDisplayContainer/ContentDisplay";
 import Stat from "../Stats/Stat";
-import _ from "lodash";
 import Stats from "../Stats/Stats";
 import Masonry from "../Masonry/Masonry";
 import Card from "../Card/Card";
 import Pill from "../Pill/Pill";
 import Button from "../Buttons/Button";
 import Icon from "../Icon/Icon";
+import Tabs from "../Tabs/Tabs";
 
 interface Props {
     pageSelector: PageSelection;
@@ -16,6 +16,7 @@ interface Props {
 const OverviewEditor:React.FC<Props> = ({pageSelector}) => {
     const {data, SetData} = useContext(DbcContext);
     useEffect(()=>{},[data,SetData]);
+
     return (
         <ContentDisplay isDisplayed={pageSelector === 'Overview'} allowOverflow>
             <Stats>
@@ -51,6 +52,13 @@ const OverviewEditor:React.FC<Props> = ({pageSelector}) => {
                                         <Pill label={message.dlc.toString()} icon='straighten'/>
                                         <Pill label={`${message.signals.size.toString()}`} icon='sensors'/>
                                     </div>
+                                    <div className='flex justify-center items-center'>
+                                        <Tabs
+                                            tabs={['General', 'Attributes', 'Layout']}
+                                            activeTab={'General'}
+                                            tabClicked={()=>{}}/>
+                                    </div>
+                                    {
                                     <ul>
                                     {
                                         Array.from(message.signals.values()).map((signal,sigIdx)=>{
@@ -59,13 +67,13 @@ const OverviewEditor:React.FC<Props> = ({pageSelector}) => {
                                                 <span className=''>
                                                     <Pill
                                                         label={`bit: ${signal.startBit.toString()}`}
-                                                        color={'bg-slate-500'}
+                                                        color={'bg-slate-200 dark:bg-slate-500'}
                                                         small
                                                         minW
                                                     />
                                                     <Pill
                                                         label={`len: ${signal.length.toString()}`}
-                                                        color={'bg-slate-500'}
+                                                        color={'bg-slate-200 dark:bg-slate-500'}
                                                         small
                                                         minW
                                                     />
@@ -74,6 +82,7 @@ const OverviewEditor:React.FC<Props> = ({pageSelector}) => {
                                         })
                                     }
                                     </ul>
+                                    }
                                 </>
                             }
                             footer={

@@ -47,10 +47,11 @@ const TableRow:React.FC<Props> = ({key,rowData,hasDelete,onDeleteCallback}) =>{
             <td>
                 <span className='flex flex-row justify-end items-center pr-5 text-white text-xs'>
                     <Button
+                        id={rowData.toString()}
                         size={'sm'}
                         color={'danger'}
                         text={''}
-                        icon={<Icon type={'remove'}/>}
+                        icon={<Icon type={'remove'} sm/>}
                         onClick={onDeleteCallback}
                     />
                 </span>

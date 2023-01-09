@@ -15,13 +15,12 @@ interface Props {
 }
 
 
-const Table:React.FC<Props> = ({headings,rows,hasDelete}) => {
+const Table:React.FC<Props> = ({headings,rows,hasDelete,onDeleteCallback}) => {
 
     const generateTableRows = (r: Rows) => {
         return r.map((row,k)=>{
             if (hasDelete) {
-                return <TableRow rowData={row} key={k} hasDelete onDeleteCallback={()=>{
-                }}/>
+                return <TableRow rowData={row} key={k} hasDelete onDeleteCallback={onDeleteCallback}/>
             } else {
                 return <TableRow rowData={row} key={k}/>
             }
