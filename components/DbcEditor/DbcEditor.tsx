@@ -100,7 +100,8 @@ const DbcEditor:React.FC<Props> = ({startingData,startingPage}) => {
     const [quickAddOpen,UseQuickAddOpen] = useState<boolean>(false);
     return <>
         <DbcContext.Provider value={init}>
-        <div className='flex flex-row'>
+        <div className='flex flex-col h-screen'>
+            <div className='flex flex-1 overflow-hidden'>
             <NavBar>
                 <NavItem buttonTitle='CANDIED'
                          logoImage='/candy-cane.svg'
@@ -125,6 +126,7 @@ const DbcEditor:React.FC<Props> = ({startingData,startingPage}) => {
             <ContentDisplay isDisplayed={selection===undefined}>
                 <Image src='/Data storage_Monochromatic.svg' fill alt='Background' className='-z-10 object-scale-down'/>
             </ContentDisplay>
+            </div>
         </div>
         <Toast message={toast.message} icon={toast.icon} isOpen={toast.isOpen}/>
         <QuickAdd

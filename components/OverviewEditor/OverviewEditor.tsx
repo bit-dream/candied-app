@@ -62,7 +62,9 @@ const OverviewEditor:React.FC<Props> = ({pageSelector}) => {
                                     <ul>
                                     {
                                         Array.from(message.signals.values()).map((signal,sigIdx)=>{
-                                            return <li className='text-xs flex flex-row justify-between w-full flex-wrap' key={sigIdx}>
+                                            return <li
+                                                className='text-xs flex flex-row justify-between w-full flex-wrap'
+                                                key={sigIdx}>
                                                 {signal.name}
                                                 <span className=''>
                                                     <Pill

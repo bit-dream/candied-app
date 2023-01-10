@@ -16,7 +16,7 @@ const ContentDisplay:React.FC<Props>  = ({isDisplayed,children,noDecoration,allo
         noDecoration ? '' : 'mx-auto',
         'flex flex-col',
         'justify-between',
-        allowOverflow ? '' :'overflow-hidden',
+        allowOverflow ? 'overflow-y-auto' :'overflow-hidden',
         noDecoration ? '' : 'p-5',
         isDisplayed ? '': 'hidden'
     )

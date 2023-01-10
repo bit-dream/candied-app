@@ -7,15 +7,14 @@ const NavBar = (props: PropsWithChildren) => {
     const classList = twMerge(
         'w-full',
         'flex',
-        'flex-col',
-        'justify-center'
+        'flex-col'
     );
 
     const [mobileMenuDisplayed,UseMobileMenuDisplayed] = useState<boolean>(false);
 
     return <>
         <FloatButton icon={'widgets'} mobileOnly onClick={()=>{UseMobileMenuDisplayed(true)}} position={'bottom-left'}/>
-        <div className='h-screen w-16 z-30 bg-amber-300 hidden lg:block md:block fixed w-full'>
+        <div className='flex h-screen w-16 bg-amber-300 hidden lg:block md:block'>
             <div className={classList}>
                 {props.children}
             </div>
