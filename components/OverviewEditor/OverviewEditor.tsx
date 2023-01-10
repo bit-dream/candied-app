@@ -9,6 +9,8 @@ import Pill from "../Pill/Pill";
 import Button from "../Buttons/Button";
 import Icon from "../Icon/Icon";
 import Tabs from "../Tabs/Tabs";
+import TabbedContent from "../Tabs/TabbedContent";
+import Tab from "../Tabs/Tab";
 
 interface Props {
     pageSelector: PageSelection;
@@ -47,26 +49,23 @@ const OverviewEditor:React.FC<Props> = ({pageSelector}) => {
                             </div>
                             }
                             content={
-                                <>
+                            <>
                                     <div className='inline-flex flex-row'>
                                         <Pill label={message.dlc.toString()} icon='straighten'/>
                                         <Pill label={`${message.signals.size.toString()}`} icon='sensors'/>
                                     </div>
-                                    <div className='flex justify-center items-center'>
-                                        <Tabs
-                                            tabs={['General', 'Attributes', 'Layout']}
-                                            activeTab={'General'}
-                                            tabClicked={()=>{}}/>
-                                    </div>
-                                    {
-                                    <ul>
-                                    {
-                                        Array.from(message.signals.values()).map((signal,sigIdx)=>{
-                                            return <li
-                                                className='text-xs flex flex-row justify-between w-full flex-wrap'
-                                                key={sigIdx}>
-                                                {signal.name}
-                                                <span className=''>
+                                    <TabbedContent>
+                                        <Tab label='General'>
+                                            <>
+                                            {
+                                                <ul>
+                                                    {
+                                                        Array.from(message.signals.values()).map((signal,sigIdx)=>{
+                                                            return <li
+                                                                className='text-xs flex flex-row justify-between w-full flex-wrap'
+                                                                key={sigIdx}>
+                                                                {signal.name}
+                                                                <span className=''>
                                                     <Pill
                                                         label={`bit: ${signal.startBit.toString()}`}
                                                         color={'bg-slate-200 dark:bg-slate-500'}
@@ -82,11 +81,39 @@ const OverviewEditor:React.FC<Props> = ({pageSelector}) => {
                                                         minW
                                                     />
                                                 </span>
-                                            </li>
-                                        })
-                                    }
-                                    </ul>
-                                    }
+                                                            </li>
+                                                        })
+                                                    }
+                                                </ul>
+                                            }
+                                            </>
+                                        </Tab>
+                                        <Tab label='Attributes'>
+                                            <div>
+                                                {
+                                                    message.attributes.size ?
+                                                    Array.from(message.attributes.values()).map((attribute)=>{
+                                                        return <>
+                                                            <div className='text-lg font-semibold'>{attribute.name}</div>
+                                                            <div><span className='font-semibold'>Min: </span>
+                                                                {attribute.min !== null ? attribute.min : 'n/a'}</div>
+                                                            <div><span className='font-semibold'>Max: </span>
+                                                                {attribute.max !== null ? attribute.max : 'n/a'}</div>
+                                                            <div><span className='font-semibold'>Data Type: </span>
+                                                                {attribute.dataType !== null ? attribute.dataType : 'n/a'}</div>
+                                                            <div><span className='font-semibold'>Type: </span>
+                                                                {attribute.type !== null ? attribute.type : 'n/a'}</div>
+                                                            <div><span className='font-semibold'>Value: </span>
+                                                                {attribute.value !== null ? attribute.value : 'n/a'}</div>
+                                                            <div><span className='font-semibold'>Options: </span>
+                                                                {attribute.options !== null ? attribute.options.join(' ') : 'n/a'}</div>
+                                                            <br/>
+                                                        </>
+                                                    }) : <div>No Data</div>
+                                                }
+                                            </div>
+                                        </Tab>
+                                    </TabbedContent>
                                 </>
                             }
                             footer={
@@ -108,7 +135,7 @@ const OverviewEditor:React.FC<Props> = ({pageSelector}) => {
                 }
             </Masonry>
         </ContentDisplay>
-    );
+    )
 };
 
 export default OverviewEditor;
