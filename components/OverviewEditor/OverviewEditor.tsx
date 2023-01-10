@@ -43,7 +43,7 @@ const OverviewEditor:React.FC<Props> = ({pageSelector}) => {
                             title={
                             <div className='flex justify-between w-full flex-wrap'>
                                 {message.name}
-                                <Pill label={`${message.id.toString()}`} color='bg-sky-400' noMargin/>
+                                <Pill label={`ID: ${message.id.toString()}`} color='bg-sky-400' noMargin/>
                             </div>
                             }
                             content={
@@ -70,12 +70,14 @@ const OverviewEditor:React.FC<Props> = ({pageSelector}) => {
                                                     <Pill
                                                         label={`bit: ${signal.startBit.toString()}`}
                                                         color={'bg-slate-200 dark:bg-slate-500'}
+                                                        textColor='text-gray-300'
                                                         small
                                                         minW
                                                     />
                                                     <Pill
                                                         label={`len: ${signal.length.toString()}`}
                                                         color={'bg-slate-200 dark:bg-slate-500'}
+                                                        textColor='text-gray-300'
                                                         small
                                                         minW
                                                     />

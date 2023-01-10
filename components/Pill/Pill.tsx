@@ -9,8 +9,9 @@ interface Props {
     noMargin?: boolean;
     small?: boolean;
     minW?: boolean;
+    textColor?: string;
 }
-const Pill:React.FC<Props> = ({label,color,icon,noMargin,small,minW}) => {
+const Pill:React.FC<Props> = ({label,color,icon,noMargin,small,minW,textColor}) => {
 
     const classList = twMerge(
         'inline-flex',
@@ -20,7 +21,7 @@ const Pill:React.FC<Props> = ({label,color,icon,noMargin,small,minW}) => {
         small ? 'py-0' : 'py-1',
         'text-xs',
         small ? '' :'font-semibold',
-        'text-gray-700',
+        textColor ? textColor :'text-gray-600',
         noMargin ? '' : 'mr-2',
         'mb-2',
         minW ? 'min-w-[72px]' : ''
