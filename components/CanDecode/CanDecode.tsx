@@ -59,7 +59,7 @@ const CanDecode:React.FC<Props> = ({message}) => {
                     <div key={idx} className='flex flex-row flex-wrap text-xs'>
                         <Pill label={`Value: ${signal.value}`} small/>
                         <Pill label={`Phy Val: ${signal.physValue}`} small/>
-                        <Pill label={`Phy Val: ${signal.rawValue}`} small/>
+                        <Pill label={`Raw: ${signal.rawValue}`} small/>
                     </div>
                 </>
             })

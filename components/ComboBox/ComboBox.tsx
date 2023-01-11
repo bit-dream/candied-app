@@ -8,8 +8,9 @@ interface Props {
     onSelection: (selected: string) => void;
     position?: string;
     required?: boolean;
+    label?: string;
 }
-const ComboBox:React.FC<Props> = ({items,selectedItem, onSelection, position,required}) => {
+const ComboBox:React.FC<Props> = ({items,selectedItem, onSelection, position,required,label}) => {
     const [open, SetOpen] = useState(false);
     const [currentSelection, SetCurrentSelection] = useState<string|undefined>(selectedItem);
 
@@ -28,7 +29,7 @@ const ComboBox:React.FC<Props> = ({items,selectedItem, onSelection, position,req
     return <>
         <div className='mb-6'>
             <label id="listbox-label" className="block text-sm font-medium text-black dark:text-white">
-                <span>Assigned to</span>
+                <span>{label ? label : 'Assigned to'}</span>
                 <span className='float-right text-gray-400'>{required ? 'Required' : 'Optional'}</span>
             </label>
             <div className="relative mt-2">

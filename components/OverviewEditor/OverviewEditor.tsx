@@ -12,6 +12,7 @@ import Tabs from "../Tabs/Tabs";
 import TabbedContent from "../Tabs/TabbedContent";
 import Tab from "../Tabs/Tab";
 import CanDecode from "../CanDecode/CanDecode";
+import AttributeDisplay from "../AttributeDisplay/AttributeDisplay";
 
 interface Props {
     pageSelector: PageSelection;
@@ -90,29 +91,7 @@ const OverviewEditor:React.FC<Props> = ({pageSelector}) => {
                                             </>
                                         </Tab>
                                         <Tab label='Attributes'>
-                                            <div>
-                                                {
-                                                    message.attributes.size ?
-                                                    Array.from(message.attributes.values()).map((attribute)=>{
-                                                        return <>
-                                                            <div className='text-lg font-semibold'>{attribute.name}</div>
-                                                            <div><span className='font-semibold'>Min: </span>
-                                                                {attribute.min !== null ? attribute.min : 'n/a'}</div>
-                                                            <div><span className='font-semibold'>Max: </span>
-                                                                {attribute.max !== null ? attribute.max : 'n/a'}</div>
-                                                            <div><span className='font-semibold'>Data Type: </span>
-                                                                {attribute.dataType !== null ? attribute.dataType : 'n/a'}</div>
-                                                            <div><span className='font-semibold'>Type: </span>
-                                                                {attribute.type !== null ? attribute.type : 'n/a'}</div>
-                                                            <div><span className='font-semibold'>Value: </span>
-                                                                {attribute.value !== null ? attribute.value : 'n/a'}</div>
-                                                            <div><span className='font-semibold'>Options: </span>
-                                                                {attribute.options !== null ? attribute.options.join(' ') : 'n/a'}</div>
-                                                            <br/>
-                                                        </>
-                                                    }) : <div>No Data</div>
-                                                }
-                                            </div>
+                                            <AttributeDisplay message={message}/>
                                         </Tab>
                                         <Tab label='Decode'>
                                             <CanDecode message={message}/>

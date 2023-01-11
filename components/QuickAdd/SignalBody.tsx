@@ -46,12 +46,14 @@ const SignalBody:React.FC<Props> = ({UseStartBit,UseSignalLength,UseSignalName,U
             selectedItem={'Intel'}
             onSelection={()=>{}}
             position={'top'}
+            label={'Endian'}
         />
         <ComboBox
             items={['Unsigned','Signed']}
             selectedItem={'Unsigned'}
             onSelection={()=>{}}
             position={'top'}
+            label={'Signed'}
         />
         <div className='flex justify-between flex-wrap'>
             <Input id={'signal_factor'} label={'Factor'} onChange={lengthChange} placeholder='1' defaultVal={1}/>
@@ -66,6 +68,7 @@ const SignalBody:React.FC<Props> = ({UseStartBit,UseSignalLength,UseSignalName,U
             selectedItem={'No Selection'}
             onSelection={()=>{}}
             position={'top'}
+            label={'Floating Point'}
         />
     </>
 }

@@ -101,7 +101,7 @@ const DbcEditor:React.FC<Props> = ({startingData,startingPage}) => {
     return <>
         <DbcContext.Provider value={init}>
         <div className='flex flex-col h-screen'>
-            <div className='flex flex-1 overflow-hidden'>
+            <div className='flex flex-1 overflow-y-auto'>
             <NavBar>
                 <NavItem buttonTitle='CANDIED'
                          logoImage='/candy-cane.svg'
