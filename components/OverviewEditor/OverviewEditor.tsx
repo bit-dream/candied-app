@@ -11,6 +11,7 @@ import Icon from "../Icon/Icon";
 import Tabs from "../Tabs/Tabs";
 import TabbedContent from "../Tabs/TabbedContent";
 import Tab from "../Tabs/Tab";
+import CanDecode from "../CanDecode/CanDecode";
 
 interface Props {
     pageSelector: PageSelection;
@@ -19,7 +20,7 @@ const OverviewEditor:React.FC<Props> = ({pageSelector}) => {
     const {data, SetData} = useContext(DbcContext);
     useEffect(()=>{},[data,SetData]);
 
-    return (
+    return <>
         <ContentDisplay isDisplayed={pageSelector === 'Overview'} allowOverflow>
             <Stats>
                 <Stat title={'nodes'}
@@ -69,14 +70,14 @@ const OverviewEditor:React.FC<Props> = ({pageSelector}) => {
                                                     <Pill
                                                         label={`bit: ${signal.startBit.toString()}`}
                                                         color={'bg-slate-200 dark:bg-slate-500'}
-                                                        textColor='text-gray-300'
+                                                        textColor='dark:text-gray-300 text-gray-600'
                                                         small
                                                         minW
                                                     />
                                                     <Pill
                                                         label={`len: ${signal.length.toString()}`}
                                                         color={'bg-slate-200 dark:bg-slate-500'}
-                                                        textColor='text-gray-300'
+                                                        textColor='dark:text-gray-300 text-gray-600'
                                                         small
                                                         minW
                                                     />
@@ -113,6 +114,9 @@ const OverviewEditor:React.FC<Props> = ({pageSelector}) => {
                                                 }
                                             </div>
                                         </Tab>
+                                        <Tab label='Decode'>
+                                            <CanDecode message={message}/>
+                                        </Tab>
                                     </TabbedContent>
                                 </>
                             }
@@ -135,7 +139,7 @@ const OverviewEditor:React.FC<Props> = ({pageSelector}) => {
                 }
             </Masonry>
         </ContentDisplay>
-    )
+    </>
 };
 
 export default OverviewEditor;

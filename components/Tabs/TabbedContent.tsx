@@ -27,7 +27,7 @@ const TabbedContent:React.FC<Props> = ({ children }) => {
                             handleActiveTab(child.props.label);
                         }
                     }}
-                    className={`inline-block ${child.props?.label === activeTab ? 'text-sky-400' : ''} p-4 rounded-t-lg border-b-2 border-transparent hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300`}
+                    className={`inline-block ${child.props?.label === activeTab ? 'text-sky-400' : ''} text-xs p-2 rounded-t-lg border-b-2 border-transparent hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300`}
                 >
                     {child.props?.label}
                 </button>

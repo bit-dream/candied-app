@@ -6,7 +6,7 @@ interface Props {
 }
 const Masonry:React.FC<Props> = ({cols,children}) => {
     return (
-        <div className={`columns-3`}>
+        <div className={`columns-1 sm:columns-1 md:columns-2 lg: columns-3 xl:columns-3`}>
             {children}
         </div>
     );
