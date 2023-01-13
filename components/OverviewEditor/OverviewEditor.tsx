@@ -13,6 +13,7 @@ import TabbedContent from "../Tabs/TabbedContent";
 import Tab from "../Tabs/Tab";
 import CanDecode from "../CanDecode/CanDecode";
 import AttributeDisplay from "../AttributeDisplay/AttributeDisplay";
+import MessageLayoutTable from "../MessageLayoutTable/MessageLayoutTable";
 
 interface Props {
     pageSelector: PageSelection;
@@ -90,11 +91,14 @@ const OverviewEditor:React.FC<Props> = ({pageSelector}) => {
                                             }
                                             </>
                                         </Tab>
-                                        <Tab label='Attributes'>
-                                            <AttributeDisplay message={message}/>
-                                        </Tab>
                                         <Tab label='Decode'>
                                             <CanDecode message={message}/>
+                                        </Tab>
+                                        <Tab label='Layout'>
+                                            <MessageLayoutTable message={message}/>
+                                        </Tab>
+                                        <Tab label='Attributes'>
+                                            <AttributeDisplay message={message}/>
                                         </Tab>
                                     </TabbedContent>
                                 </>
