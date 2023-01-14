@@ -1,6 +1,7 @@
 import React from 'react';
 import {Message} from "candied/lib/dbc/Dbc";
 import {twMerge} from "tailwind-merge";
+import ToolTip from "../ToolTip/ToolTip";
 
 interface Props {
     message: Message;
@@ -37,17 +38,29 @@ const MessageLayoutTable:React.FC<Props> = ({message}) => {
                             {columnHeadings.map((col,key)=>{
                                 let bit = ((row)*8)+(col);
                                 let bg = ''
+                                let bitData = undefined;
                                 Array.from(message.signals?.values()).forEach((signal,idx)=>{
                                     if (bit >= signal.startBit && bit < signal.startBit + signal.length) {
                                         bg = signalColors[idx];
+                                        bitData = <ToolTip title={signal.name}>{bit}</ToolTip>
                                     }
                                 })
-                                if (row+1 > message.dlc) bg = 'text-slate-500'
-                                return <>
-                                        <td key={key} className={`w-10 h-6 text-center text-white ${bg}`}>
-                                            {bit}
+                                if (!bitData) bitData = <>{bit}</>
+                                if (row+1 > message.dlc) {
+                                    bg = 'text-slate-500'
+                                }
+                                return(
+                                        <td key={key} className={`
+                                            group 
+                                            relative 
+                                            w-10 
+                                            h-6 
+                                            text-center 
+                                            ${bg}
+                                        `}>
+                                            {bitData}
                                         </td>
-                                </>
+                                )
                             })
                             }
                         </tr>

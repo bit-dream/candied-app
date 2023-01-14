@@ -5,6 +5,7 @@ import Input from "../Input/Input";
 import {Message} from "candied/lib/dbc/Dbc";
 import {BoundSignal} from "candied/lib/can/Can";
 import Pill from "../Pill/Pill";
+import PayloadArray from "../PayloadArray/PayloadArray";
 
 interface Props {
     message: Message;
@@ -34,6 +35,9 @@ const CanDecode:React.FC<Props> = ({message}) => {
 
     const requiredInputFields = Array(message.dlc).fill(0);
     return <>
+        <div className='flex justify-center mb-4'>
+            <PayloadArray payload={[...payload].slice(0,message.dlc)} id={message.id}/>
+        </div>
         <div className='flex flex-row flex-wrap justify-center'>
             {
                 requiredInputFields.map((input,idx)=>{
